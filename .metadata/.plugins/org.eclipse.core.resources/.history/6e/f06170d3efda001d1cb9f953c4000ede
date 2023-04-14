@@ -18,7 +18,7 @@ void keypad_init() {
     /*
      * This function, configures row, column and keypad pin
     */
-//NEW COMMENT FOR GIT
+
     //Making column pins output mode bits(01)
     COL_PORT->MODER &= ~(GPIO_MODER_MODE12 | GPIO_MODER_MODE13 | GPIO_MODER_MODE15);
     COL_PORT->MODER |= (GPIO_MODER_MODE12_0 | GPIO_MODER_MODE13_0 | GPIO_MODER_MODE15_0);
