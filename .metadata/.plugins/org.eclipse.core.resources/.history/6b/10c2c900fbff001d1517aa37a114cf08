@@ -1,0 +1,35 @@
+/*
+ * UART.c
+ *
+ *  Created on: May 31, 2023
+ *      Author: james
+ */
+
+
+#include "main.h"
+#include "UART.h"
+
+
+//initializies uart for Databus E
+
+void UART1_init(void) {
+    RCC->APB2ENR |= RCC_APB2ENR_USART1EN;     // Enable UART1 clock
+
+    // Initialize Pins for UART1
+    RCC->AHB2ENR |= RCC_AHB2ENR_GPIOAEN;       // Enable GPIOA clock
+    GPIOA->MODER &= ~(GPIO_MODER_MODE9 | GPIO_MODER_MODE10);  // Clear bits
+    GPIOA->MODER |= (GPIO_MODER_MODE9_1 | GPIO_MODER_MODE10_1);  // Set to AF mode
+    GPIOA->AFR[1] |= (7 << GPIO_AFRH_AFSEL9_Pos) | (7 << GPIO_AFRH_AFSEL10_Pos);  // Set to AF7 (UART1)
+
+    // Configure UART1
+    USART1->CR1 &= ~(USART_CR1_M1 | USART_CR1_M0);  // 8-bit data
+    USART1->CR1 |= USART_CR1_UE;                    // Enable UART1
+    USART1->CR1 |= (USART_CR1_TE | USART_CR1_RE);   // Enable transmit and receive
+
+    USART1->BRR = 57600;                            // Set baud rate (57600 to match fingerprint)
+
+     NVIC->ISER[2] = (1 << (USART1_IRQn & 0x1F));   // Enable UART1 ISR
+     __enable_irq();                               // Enable global interrupts
+}
+
+

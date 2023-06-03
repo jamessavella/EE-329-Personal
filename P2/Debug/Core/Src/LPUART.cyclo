@@ -1,0 +1,4 @@
+LPUART.c:14:6:LPUAR_init	1
+LPUART.c:38:6:LPUART_Print	3
+LPUART.c:49:6:LPUART_ESC_Print	4
+LPUART.c:91:5:randomInt	1

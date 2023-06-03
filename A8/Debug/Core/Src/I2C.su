@@ -1,0 +1,2 @@
+../Core/Src/I2C.c:14:6:EEPROM_init	4	static
+../Core/Src/I2C.c:35:6:EEPROM_read	4	static

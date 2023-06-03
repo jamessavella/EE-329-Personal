@@ -1,0 +1,4 @@
+../Core/Src/LPUART.c:19:6:LPUART_init	4	static
+../Core/Src/LPUART.c:43:6:LPUART_Print	24	static
+../Core/Src/LPUART.c:55:6:LPUART_ESC_Print	24	static
+../Core/Src/LPUART.c:71:6:update_position	48	static

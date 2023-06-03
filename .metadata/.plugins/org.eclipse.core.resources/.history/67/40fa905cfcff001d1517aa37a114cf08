@@ -1,0 +1,94 @@
+/*
+ * UART.c
+ *
+ *  Created on: May 31, 2023
+ *      Author: james
+ */
+
+#include "main.h"
+#include "UART.h"
+
+//---------------------NEED TO VERIFY THAT THIS WORKS
+//References: pg1386 flags for registers
+//James Function
+//Initializes UART for bus E
+//This communication protocol is for the fingerprint scanner
+void UART1_init(void) {
+	RCC->APB2ENR |= RCC_APB2ENR_USART2EN;     // Enable UART1 clock
+
+	// Initialize Pins for UART1
+	RCC->AHB2ENR |= RCC_AHB2ENR_GPIODEN;       // Enable GPIOA clock
+	GPIOD->MODER &= ~(GPIO_MODER_MODE9 | GPIO_MODER_MODE10);  // Clear bits
+	GPIOD->MODER |= (GPIO_MODER_MODE9_1 | GPIO_MODER_MODE10_1); // Set to AF mode
+	GPIOD->AFR[1] |= (7 << GPIO_AFRH_AFSEL9_Pos) | (7 << GPIO_AFRH_AFSEL10_Pos); // Set to AF7 (UART1)
+
+	// Configure UART2
+	USART2->CR1 &= ~(USART_CR1_M1 | USART_CR1_M0);  // 8-bit data
+	USART2->CR1 |= USART_CR1_UE;                    // Enable UART1
+	USART2->CR1 |= (USART_CR1_TE | USART_CR1_RE); // Enable transmit and receive
+
+	USART2->BRR = 57600;   // Set baud rate (57600 to match fingerprint scanner)
+
+	NVIC->ISER[2] = (1 << (USART2_IRQn & 0x1F));   // Enable UART1 ISR
+	__enable_irq();                               // Enable global interrupts
+}
+
+
+
+
+
+//Wilson Functions
+void LPUART_init() {
+	PWR->CR2 |= (PWR_CR2_IOSV);             // power avail on PG[15:2] (LPUART1)
+	RCC->AHB2ENR |= (RCC_AHB2ENR_GPIOGEN);   // enable GPIOG clock
+	RCC->APB1ENR2 |= RCC_APB1ENR2_LPUART1EN; // enable LPUART clock bridge
+	GPIOG->MODER &= ~(GPIO_MODER_MODE5 | GPIO_MODER_MODE6 | GPIO_MODER_MODE7
+			| GPIO_MODER_MODE8); //clear bits
+	GPIOG->MODER |= (GPIO_MODER_MODE5_1 | GPIO_MODER_MODE6_1
+			| GPIO_MODER_MODE7_1 | GPIO_MODER_MODE8_1); //set bits AF mode
+	GPIOG->AFR[0] &= ~((0x000F << GPIO_AFRL_AFSEL5_Pos)
+			| (0x000F << GPIO_AFRL_AFSEL6_Pos)
+			| (0x000F << GPIO_AFRL_AFSEL7_Pos));
+	GPIOG->AFR[1] &= ~(0x000F << GPIO_AFRH_AFSEL8_Pos); //clear AF
+
+	GPIOG->AFR[0] |= ((0x0008 << GPIO_AFRL_AFSEL5_Pos)
+			| (0x0008 << GPIO_AFRL_AFSEL6_Pos)
+			| (0x0008 << GPIO_AFRL_AFSEL7_Pos));	//set bits AF 8
+
+	GPIOG->AFR[1] |= (0x0008 << GPIO_AFRH_AFSEL8_Pos);
+	/* USER: configure GPIOG registers MODER/PUPDR/OTYPER/OSPEEDR then
+	 select AF mode and specify which function with AFR[0] and AFR[1] */
+	LPUART1->CR1 &= ~(USART_CR1_M1 | USART_CR1_M0); // 8-bit data
+	LPUART1->CR1 |= USART_CR1_UE;                   // enable LPUART1
+	LPUART1->CR1 |= (USART_CR1_TE | USART_CR1_RE);  // enable xmit & recv
+	LPUART1->CR1 |= USART_CR1_RXNEIE;        // enable LPUART1 recv interrupt
+	LPUART1->ISR &= ~(USART_ISR_RXNE);       // clear Recv-Not-Empty flag
+	LPUART1->BRR = 106666;
+	NVIC->ISER[2] = (1 << (LPUART1_IRQn & 0x1F));   // enable LPUART1 ISR
+	__enable_irq();                          // enable global interrupts
+
+}
+
+void LPUART_Print_Char(char ch) {
+	while (!(LPUART1->ISR & USART_ISR_TXE))
+		;   // wait for empty transmit buffer
+	LPUART1->TDR = ch;                        // send the character
+}
+
+void LPUART_Print(const char *message) {
+	uint16_t iStrIdx = 0;
+	while (message[iStrIdx] != '\0') {
+		LPUART_Print_Char(message[iStrIdx]);
+		iStrIdx++;
+	}
+}
+
+void LPUART_ESC_Print(const char *message) {
+	uint16_t iStrIdx = 0;
+	while (message[iStrIdx] != 0) {
+		while (!(LPUART1->ISR & USART_ISR_TXE))
+			;   // wait for empty transmit buffer
+		LPUART1->TDR = message[iStrIdx];        // send this character
+		iStrIdx++;                      // advance index to next char.
+	}
+}

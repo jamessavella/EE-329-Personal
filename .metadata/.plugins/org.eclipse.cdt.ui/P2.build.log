@@ -1,0 +1,21 @@
+00:06:57 **** Incremental Build of configuration Debug for project P2 ****
+make -j12 all 
+arm-none-eabi-gcc "../Core/Src/LPUART.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DDEBUG -DUSE_HAL_DRIVER -DSTM32L4A6xx -c -I../Core/Inc -I../Drivers/STM32L4xx_HAL_Driver/Inc -I../Drivers/STM32L4xx_HAL_Driver/Inc/Legacy -I../Drivers/CMSIS/Device/ST/STM32L4xx/Include -I../Drivers/CMSIS/Include -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -fcyclomatic-complexity -MMD -MP -MF"Core/Src/LPUART.d" -MT"Core/Src/LPUART.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "Core/Src/LPUART.o"
+arm-none-eabi-gcc "../Core/Src/main.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DDEBUG -DUSE_HAL_DRIVER -DSTM32L4A6xx -c -I../Core/Inc -I../Drivers/STM32L4xx_HAL_Driver/Inc -I../Drivers/STM32L4xx_HAL_Driver/Inc/Legacy -I../Drivers/CMSIS/Device/ST/STM32L4xx/Include -I../Drivers/CMSIS/Include -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -fcyclomatic-complexity -MMD -MP -MF"Core/Src/main.d" -MT"Core/Src/main.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "Core/Src/main.o"
+../Core/Src/LPUART.c: In function 'LPUART_Print':
+../Core/Src/LPUART.c:44:3: warning: implicit declaration of function 'delay_us' [-Wimplicit-function-declaration]
+   44 |   delay_us(200);
+      |   ^~~~~~~~
+../Core/Src/LPUART.c: In function 'randomInt':
+../Core/Src/LPUART.c:92:18: warning: implicit declaration of function 'rand' [-Wimplicit-function-declaration]
+   92 |     return min + rand() % (max - min + 1);
+      |                  ^~~~
+../Core/Src/main.c:216:1: error: expected identifier or '(' before '}' token
+  216 | }
+      | ^
+make: *** [Core/Src/subdir.mk:52: Core/Src/main.o] Error 1
+make: *** Waiting for unfinished jobs....
+"make -j12 all" terminated with exit code 2. Build might be incomplete.
+
+00:06:57 Build Failed. 3 errors, 2 warnings. (took 414ms)
+

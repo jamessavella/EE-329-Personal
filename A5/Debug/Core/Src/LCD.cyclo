@@ -1,0 +1,5 @@
+LCD.c:15:6:LCD_command	1
+LCD.c:29:6:LCD_write_char	1
+LCD.c:45:6:LCD_write_str	3
+LCD.c:55:6:LCD_pulse_ENA	1
+LCD.c:64:6:LCD_init	2

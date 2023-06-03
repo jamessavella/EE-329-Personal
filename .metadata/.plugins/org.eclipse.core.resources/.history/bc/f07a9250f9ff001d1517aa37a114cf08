@@ -1,0 +1,20 @@
+/*
+ * UART.c
+ *
+ *  Created on: May 31, 2023
+ *      Author: james
+ */
+
+
+#include "main.h"
+#include "UART.h"
+
+
+//initializies uart for Databus E
+void uart_init(void){
+
+
+
+}
+
+

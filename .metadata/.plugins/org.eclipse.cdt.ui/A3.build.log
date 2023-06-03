@@ -1,0 +1,87 @@
+12:19:35 **** Incremental Build of configuration Debug for project A3 ****
+make -j12 all 
+arm-none-eabi-gcc "../Core/Src/delay.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DDEBUG -DUSE_HAL_DRIVER -DSTM32L4A6xx -c -I../Core/Inc -I../Drivers/STM32L4xx_HAL_Driver/Inc -I../Drivers/STM32L4xx_HAL_Driver/Inc/Legacy -I../Drivers/CMSIS/Device/ST/STM32L4xx/Include -I../Drivers/CMSIS/Include -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -fcyclomatic-complexity -MMD -MP -MF"Core/Src/delay.d" -MT"Core/Src/delay.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "Core/Src/delay.o"
+arm-none-eabi-gcc "../Core/Src/lcd.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DDEBUG -DUSE_HAL_DRIVER -DSTM32L4A6xx -c -I../Core/Inc -I../Drivers/STM32L4xx_HAL_Driver/Inc -I../Drivers/STM32L4xx_HAL_Driver/Inc/Legacy -I../Drivers/CMSIS/Device/ST/STM32L4xx/Include -I../Drivers/CMSIS/Include -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -fcyclomatic-complexity -MMD -MP -MF"Core/Src/lcd.d" -MT"Core/Src/lcd.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "Core/Src/lcd.o"
+In file included from ../Core/Src/delay.c:7:
+../Core/Inc/delay.h:9:16: error: unknown type name 'uint32_t'
+    9 | void delay_us( uint32_t time_us);
+      |                ^~~~~~~~
+../Core/Src/delay.c:11:21: error: unknown type name 'uint32_t'
+   11 | void delay_us(const uint32_t time_us);
+      |                     ^~~~~~~~
+../Core/Src/delay.c: In function 'SysTick_Init':
+../Core/Src/delay.c:16:5: error: 'SysTick' undeclared (first use in this function)
+   16 |     SysTick->CTRL |= (SysTick_CTRL_ENABLE_Msk |        // enable SysTick Timer
+      |     ^~~~~~~
+../Core/Src/delay.c:16:5: note: each undeclared identifier is reported only once for each function it appears in
+../Core/Src/delay.c:16:23: error: 'SysTick_CTRL_ENABLE_Msk' undeclared (first use in this function)
+   16 |     SysTick->CTRL |= (SysTick_CTRL_ENABLE_Msk |        // enable SysTick Timer
+      |                       ^~~~~~~~~~~~~~~~~~~~~~~
+../Core/Src/delay.c:17:23: error: 'SysTick_CTRL_CLKSOURCE_Msk' undeclared (first use in this function)
+   17 |                       SysTick_CTRL_CLKSOURCE_Msk);     // select CPU clock
+      |                       ^~~~~~~~~~~~~~~~~~~~~~~~~~
+../Core/Src/delay.c:18:24: error: 'SysTick_CTRL_TICKINT_Msk' undeclared (first use in this function)
+   18 |     SysTick->CTRL &= ~(SysTick_CTRL_TICKINT_Msk);      // disable interrupt
+      |                        ^~~~~~~~~~~~~~~~~~~~~~~~
+../Core/Src/delay.c: At top level:
+../Core/Src/delay.c:25:21: error: unknown type name 'uint32_t'
+   25 | void delay_us(const uint32_t time_us) {  // time_us = target delay, microseconds
+      |                     ^~~~~~~~
+../Core/Src/delay.c: In function 'delay_us':
+../Core/Src/delay.c:26:5: error: 'SysTick' undeclared (first use in this function)
+   26 |     SysTick->LOAD = (uint32_t)((time_us * (SystemCoreClock / 1000000)) - 1);
+      |     ^~~~~~~
+../Core/Src/delay.c:26:22: error: 'uint32_t' undeclared (first use in this function)
+   26 |     SysTick->LOAD = (uint32_t)((time_us * (SystemCoreClock / 1000000)) - 1);
+      |                      ^~~~~~~~
+In file included from ../Core/Src/lcd.c:7:
+../Core/Inc/delay.h:9:16: error: unknown type name 'uint32_t'
+    9 | void delay_us( uint32_t time_us);
+      |                ^~~~~~~~
+../Core/Src/lcd.c:11:21: error: unknown type name 'uint32_t'
+   11 | void delay_us(const uint32_t time_us);
+      |                     ^~~~~~~~
+../Core/Src/delay.c:26:44: error: 'SystemCoreClock' undeclared (first use in this function)
+   26 |     SysTick->LOAD = (uint32_t)((time_us * (SystemCoreClock / 1000000)) - 1);
+      |                                            ^~~~~~~~~~~~~~~
+../Core/Src/lcd.c: In function 'SysTick_Init':
+../Core/Src/lcd.c:16:5: error: 'SysTick' undeclared (first use in this function)
+   16 |     SysTick->CTRL |= (SysTick_CTRL_ENABLE_Msk |        // enable SysTick Timer
+      |     ^~~~~~~
+../Core/Src/lcd.c:16:5: note: each undeclared identifier is reported only once for each function it appears in
+../Core/Src/delay.c:28:24: error: 'SysTick_CTRL_COUNTFLAG_Msk' undeclared (first use in this function)
+   28 |     SysTick->CTRL &= ~(SysTick_CTRL_COUNTFLAG_Msk);        // clear the count flag
+      |                        ^~~~~~~~~~~~~~~~~~~~~~~~~~
+../Core/Src/lcd.c:16:23: error: 'SysTick_CTRL_ENABLE_Msk' undeclared (first use in this function)
+   16 |     SysTick->CTRL |= (SysTick_CTRL_ENABLE_Msk |        // enable SysTick Timer
+      |                       ^~~~~~~~~~~~~~~~~~~~~~~
+../Core/Src/lcd.c:17:23: error: 'SysTick_CTRL_CLKSOURCE_Msk' undeclared (first use in this function)
+   17 |                       SysTick_CTRL_CLKSOURCE_Msk);     // select CPU clock
+      |                       ^~~~~~~~~~~~~~~~~~~~~~~~~~
+../Core/Src/lcd.c:18:24: error: 'SysTick_CTRL_TICKINT_Msk' undeclared (first use in this function)
+   18 |     SysTick->CTRL &= ~(SysTick_CTRL_TICKINT_Msk);      // disable interrupt
+      |                        ^~~~~~~~~~~~~~~~~~~~~~~~
+../Core/Src/lcd.c: At top level:
+../Core/Src/lcd.c:25:21: error: unknown type name 'uint32_t'
+   25 | void delay_us(const uint32_t time_us) {  // time_us = target delay, microseconds
+      |                     ^~~~~~~~
+../Core/Src/lcd.c: In function 'delay_us':
+../Core/Src/lcd.c:26:5: error: 'SysTick' undeclared (first use in this function)
+   26 |     SysTick->LOAD = (uint32_t)((time_us * (SystemCoreClock / 1000000)) - 1);
+      |     ^~~~~~~
+../Core/Src/lcd.c:26:22: error: 'uint32_t' undeclared (first use in this function)
+   26 |     SysTick->LOAD = (uint32_t)((time_us * (SystemCoreClock / 1000000)) - 1);
+      |                      ^~~~~~~~
+../Core/Src/lcd.c:26:44: error: 'SystemCoreClock' undeclared (first use in this function)
+   26 |     SysTick->LOAD = (uint32_t)((time_us * (SystemCoreClock / 1000000)) - 1);
+      |                                            ^~~~~~~~~~~~~~~
+../Core/Src/lcd.c:28:24: error: 'SysTick_CTRL_COUNTFLAG_Msk' undeclared (first use in this function)
+   28 |     SysTick->CTRL &= ~(SysTick_CTRL_COUNTFLAG_Msk);        // clear the count flag
+      |                        ^~~~~~~~~~~~~~~~~~~~~~~~~~
+make: *** [Core/Src/subdir.mk:40: Core/Src/delay.o] Error 1
+make: *** Waiting for unfinished jobs....
+make: *** [Core/Src/subdir.mk:40: Core/Src/lcd.o] Error 1
+"make -j12 all" terminated with exit code 2. Build might be incomplete.
+
+12:19:35 Build Failed. 25 errors, 0 warnings. (took 309ms)
+

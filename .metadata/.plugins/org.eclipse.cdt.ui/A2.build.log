@@ -1,21 +1,106 @@
-10:55:27 **** Incremental Build of configuration Debug for project A2 ****
+11:55:00 **** Incremental Build of configuration Debug for project A2 ****
 make -j12 all 
+arm-none-eabi-gcc "../Core/Src/keypad.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DDEBUG -DUSE_HAL_DRIVER -DSTM32L4A6xx -c -I../Core/Inc -I../Drivers/STM32L4xx_HAL_Driver/Inc -I../Drivers/STM32L4xx_HAL_Driver/Inc/Legacy -I../Drivers/CMSIS/Device/ST/STM32L4xx/Include -I../Drivers/CMSIS/Include -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -fcyclomatic-complexity -MMD -MP -MF"Core/Src/keypad.d" -MT"Core/Src/keypad.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "Core/Src/keypad.o"
 arm-none-eabi-gcc "../Core/Src/main.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DDEBUG -DUSE_HAL_DRIVER -DSTM32L4A6xx -c -I../Core/Inc -I../Drivers/STM32L4xx_HAL_Driver/Inc -I../Drivers/STM32L4xx_HAL_Driver/Inc/Legacy -I../Drivers/CMSIS/Device/ST/STM32L4xx/Include -I../Drivers/CMSIS/Include -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -fcyclomatic-complexity -MMD -MP -MF"Core/Src/main.d" -MT"Core/Src/main.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "Core/Src/main.o"
-../Core/Src/main.c: In function 'set_leds':
-../Core/Src/main.c:120:1: warning: control reaches end of non-void function [-Wreturn-type]
-  120 | }
-      | ^
-arm-none-eabi-gcc -o "A2.elf" @"objects.list"   -mcpu=cortex-m4 -T"C:\Users\james\STM32CubeIDE\workspace_1.12.0\A2\STM32L4A6ZGTX_FLASH.ld" --specs=nosys.specs -Wl,-Map="A2.map" -Wl,--gc-sections -static --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -Wl,--start-group -lc -lm -Wl,--end-group
-Finished building target: A2.elf
- 
-arm-none-eabi-size   A2.elf 
-arm-none-eabi-objdump -h -S  A2.elf  > "A2.list"
-   text	   data	    bss	    dec	    hex	filename
-   5696	     56	   1568	   7320	   1c98	A2.elf
-Finished building: default.size.stdout
- 
-Finished building: A2.list
- 
+In file included from ../Core/Src/keypad.c:1:
+../Core/Inc/keypad.h:24:14: error: 'GPIO_PIN_15' undeclared here (not in a function)
+   24 | #define Col1 GPIO_PIN_15 // Column 1 pin
+      |              ^~~~~~~~~~~
+../Core/Inc/keypad.h:35:26: note: in expansion of macro 'Col1'
+   35 | static    int cols[4] = {Col1, Col2, Col3};
+      |                          ^~~~
+../Core/Inc/keypad.h:25:14: error: 'GPIO_PIN_13' undeclared here (not in a function)
+   25 | #define Col2 GPIO_PIN_13 // Column 2 pin
+      |              ^~~~~~~~~~~
+../Core/Inc/keypad.h:35:32: note: in expansion of macro 'Col2'
+   35 | static    int cols[4] = {Col1, Col2, Col3};
+      |                                ^~~~
+../Core/Inc/keypad.h:26:14: error: 'GPIO_PIN_12' undeclared here (not in a function)
+   26 | #define Col3 GPIO_PIN_12 // Column 3 pin
+      |              ^~~~~~~~~~~
+../Core/Inc/keypad.h:35:38: note: in expansion of macro 'Col3'
+   35 | static    int cols[4] = {Col1, Col2, Col3};
+      |                                      ^~~~
+../Core/Inc/keypad.h:18:14: error: 'GPIO_PIN_0' undeclared here (not in a function)
+   18 | #define Row1 GPIO_PIN_0 // Row 1 pin
+      |              ^~~~~~~~~~
+../Core/Inc/keypad.h:36:26: note: in expansion of macro 'Row1'
+   36 | static    int rows[4] = {Row1, Row2, Row3, Row4};
+      |                          ^~~~
+../Core/Inc/keypad.h:19:14: error: 'GPIO_PIN_1' undeclared here (not in a function)
+   19 | #define Row2 GPIO_PIN_1 // Row 2 pin
+      |              ^~~~~~~~~~
+../Core/Inc/keypad.h:36:32: note: in expansion of macro 'Row2'
+   36 | static    int rows[4] = {Row1, Row2, Row3, Row4};
+      |                                ^~~~
+../Core/Inc/keypad.h:20:14: error: 'GPIO_PIN_2' undeclared here (not in a function)
+   20 | #define Row3 GPIO_PIN_2 // Row 3 pin
+      |              ^~~~~~~~~~
+../Core/Inc/keypad.h:36:38: note: in expansion of macro 'Row3'
+   36 | static    int rows[4] = {Row1, Row2, Row3, Row4};
+      |                                      ^~~~
+../Core/Inc/keypad.h:21:14: error: 'GPIO_PIN_3' undeclared here (not in a function)
+   21 | #define Row4 GPIO_PIN_3 // Row 4 pin
+      |              ^~~~~~~~~~
+../Core/Inc/keypad.h:36:44: note: in expansion of macro 'Row4'
+   36 | static    int rows[4] = {Row1, Row2, Row3, Row4};
+      |                                            ^~~~
+../Core/Src/keypad.c:9:1: error: expected ',' or ';' before 'int'
+    9 | int keypad_read(int cols, int row){
+      | ^~~
+In file included from ../Core/Src/keypad.c:1:
+../Core/Src/keypad.c: In function 'check_row_col':
+../Core/Inc/keypad.h:15:18: error: 'GPIOB' undeclared (first use in this function)
+   15 | #define COL_PORT GPIOB // Port for columns
+      |                  ^~~~~
+../Core/Src/keypad.c:31:9: note: in expansion of macro 'COL_PORT'
+   31 |         COL_PORT->BSRR = cols[c]; //turn on the column
+      |         ^~~~~~~~
+../Core/Inc/keypad.h:15:18: note: each undeclared identifier is reported only once for each function it appears in
+   15 | #define COL_PORT GPIOB // Port for columns
+      |                  ^~~~~
+../Core/Src/keypad.c:31:9: note: in expansion of macro 'COL_PORT'
+   31 |         COL_PORT->BSRR = cols[c]; //turn on the column
+      |         ^~~~~~~~
+../Core/Inc/keypad.h:14:18: error: 'GPIOC' undeclared (first use in this function)
+   14 | #define ROW_PORT GPIOC // Port for rows
+      |                  ^~~~~
+../Core/Src/keypad.c:33:17: note: in expansion of macro 'ROW_PORT'
+   33 |             if (ROW_PORT->IDR & (rows[r])) { //Check if key pressed is in the row
+      |                 ^~~~~~~~
+At top level:
+../Core/Inc/keypad.h:37:15: warning: 'delay_time' defined but not used [-Wunused-variable]
+   37 | static    int delay_time = 10000; //guess and check
+      |               ^~~~~~~~~~
+make: *** [Core/Src/subdir.mk:37: Core/Src/keypad.o] Error 1
+make: *** Waiting for unfinished jobs....
+../Core/Src/main.c:4:1: error: expected ',' or ';' before 'void'
+    4 | void SystemClock_Config(void);
+      | ^~~~
+../Core/Src/main.c: In function 'main':
+../Core/Src/main.c:65:3: warning: implicit declaration of function 'SystemClock_Config'; did you mean 'SysTick_Config'? [-Wimplicit-function-declaration]
+   65 |   SystemClock_Config();
+      |   ^~~~~~~~~~~~~~~~~~
+      |   SysTick_Config
+../Core/Src/main.c: At top level:
+../Core/Src/main.c:108:6: warning: conflicting types for 'SystemClock_Config'
+  108 | void SystemClock_Config(void)
+      |      ^~~~~~~~~~~~~~~~~~
+../Core/Src/main.c:65:3: note: previous implicit declaration of 'SystemClock_Config' was here
+   65 |   SystemClock_Config();
+      |   ^~~~~~~~~~~~~~~~~~
+In file included from ../Core/Src/main.c:2:
+../Core/Inc/keypad.h:37:15: warning: 'delay_time' defined but not used [-Wunused-variable]
+   37 | static    int delay_time = 10000; //guess and check
+      |               ^~~~~~~~~~
+../Core/Inc/keypad.h:36:15: warning: 'rows' defined but not used [-Wunused-variable]
+   36 | static    int rows[4] = {Row1, Row2, Row3, Row4};
+      |               ^~~~
+../Core/Inc/keypad.h:35:15: warning: 'cols' defined but not used [-Wunused-variable]
+   35 | static    int cols[4] = {Col1, Col2, Col3};
+      |               ^~~~
+make: *** [Core/Src/subdir.mk:37: Core/Src/main.o] Error 1
+"make -j12 all" terminated with exit code 2. Build might be incomplete.
 
-10:55:28 Build Finished. 0 errors, 1 warnings. (took 1s.34ms)
+11:55:00 Build Failed. 14 errors, 6 warnings. (took 416ms)
 

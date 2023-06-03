@@ -1,0 +1,16 @@
+21:18:24 **** Build of configuration Debug for project A7WORKS ****
+make -j12 all 
+arm-none-eabi-gcc "../Core/Src/LPUART.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DDEBUG -DUSE_HAL_DRIVER -DSTM32L4A6xx -c -I../Core/Inc -I../Drivers/STM32L4xx_HAL_Driver/Inc -I../Drivers/STM32L4xx_HAL_Driver/Inc/Legacy -I../Drivers/CMSIS/Device/ST/STM32L4xx/Include -I../Drivers/CMSIS/Include -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -fcyclomatic-complexity -MMD -MP -MF"Core/Src/LPUART.d" -MT"Core/Src/LPUART.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "Core/Src/LPUART.o"
+../Core/Src/LPUART.c: In function 'LPUART1_IRQHandler':
+../Core/Src/LPUART.c:191:4: error: 'row' undeclared (first use in this function)
+  191 |    row -= 1;
+      |    ^~~
+../Core/Src/LPUART.c:191:4: note: each undeclared identifier is reported only once for each function it appears in
+../Core/Src/LPUART.c:199:4: error: 'col' undeclared (first use in this function)
+  199 |    col -= 1;
+      |    ^~~
+make: *** [Core/Src/subdir.mk:40: Core/Src/LPUART.o] Error 1
+"make -j12 all" terminated with exit code 2. Build might be incomplete.
+
+21:18:24 Build Failed. 3 errors, 0 warnings. (took 699ms)
+

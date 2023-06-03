@@ -1,0 +1,19 @@
+/*
+ * UART.h
+ *
+ *  Created on: May 31, 2023
+ *      Author: james
+ */
+
+#include "main.h"
+
+#ifndef INC_UART_H_
+#define INC_UART_H_
+
+void UART1_init(void);
+void USART1_IRQHandler (void);
+void LPUART_Print_Char(char ch);
+void LPUART_Print(const char *message);
+void LPUART_ESC_Print(const char *message);
+
+#endif /* INC_UART_H_ */

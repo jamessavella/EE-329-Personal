@@ -1,0 +1,20 @@
+/*
+ * fingerprint.h
+ *
+ *  Created on: May 31, 2023
+ *      Author: james
+ */
+
+#ifndef INC_FINGERPRINT_H_
+#define INC_FINGERPRINT_H_
+
+void FP_init(void);
+
+//instruction function declarations
+void FP_handshake(void);
+void FP_setAddr(uint32_t og_adr, uint32_t new_adr);
+
+
+
+
+#endif /* INC_FINGERPRINT_H_ */

@@ -1,0 +1,48 @@
+/*
+ * I2C.c
+ *
+ *  Created on: Jun 2, 2023
+ *      Author: james
+ */
+
+#include "main.h"
+
+void EEPROM_init(){
+	//initializes I2C communication
+	RCC->APB1ENR1 |= RCC_APB1ENR1_I2C1EN;  // enable I2C bus clock
+	I2C1->CR1   &= ~( I2C_CR1_PE );        // put I2C into reset (release SDA, SCL)
+	I2C1->CR1   &= ~( I2C_CR1_ANFOFF );    // filters: enable analog
+	I2C1->CR1   &= ~( I2C_CR1_DNF );       // filters: disable digital
+	I2C1->TIMINGR = 0x00303D5B;            // 16 MHz SYSCLK timing from CubeMX
+	I2C1->CR2   |=  ( I2C_CR2_AUTOEND );   // auto send STOP after transmission
+	I2C1->CR2   &= ~( I2C_CR2_ADD10 );     // 7-bit address mode
+	I2C1->CR1   |=  ( I2C_CR1_PE );        // enable I2C
+
+
+	//Initializes GPIO Pins for RX and TX
+}
+
+
+void EEPROM_read(){
+	I2C1->CR2 &= ~I2C_CR2_NBYTES; // clear before OR-setting
+	I2C1->CR2 |= ( 2 << I2C_CR2_NBYTES_Pos ); // 2 Bytes send = address
+	I2C1->CR2 |= I2C_CR2_START; // start I2C transaction
+
+	//sends upper address byte
+	while (!((I2C1->ISR) & (I2C_ISR_TXIS))) ; // wait for empty TDXR reg
+	I2C1->TXDR = (EEPROM_ADDR >> 8); // write data to EEPROM
+	I2C1->ISR &= ~I2C_ISR_TXIS; // clear bit
+
+	// repeat for address LSB
+	while (!((I2C1->ISR) & (I2C_ISR_TXIS))) ; // wait for empty TDXR reg
+	I2C1->TXDR = (EEPROM_ADDR); // write data to EEPROM
+	I2C1->ISR &= ~I2C_ISR_TXIS; // clear bit
+
+
+	// change NBYTES to 1; set RD_WRN bit
+	// START
+	while (!((I2C1->ISR) & (I2C_ISR_RXNE))) ; // wait for not empty RXDR
+	read_val = (I2C1->RXDR); // read DATA
+	I2C1->ISR &= ~I2C_ISR_RXNE; // clear bit
+
+}

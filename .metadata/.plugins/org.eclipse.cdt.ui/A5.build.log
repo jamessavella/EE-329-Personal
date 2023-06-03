@@ -1,0 +1,55 @@
+11:44:42 **** Incremental Build of configuration Debug for project A5 ****
+make -j12 all 
+arm-none-eabi-gcc "../Core/Src/main.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DDEBUG -DUSE_HAL_DRIVER -DSTM32L4A6xx -c -I../Core/Inc -I../Drivers/STM32L4xx_HAL_Driver/Inc -I../Drivers/STM32L4xx_HAL_Driver/Inc/Legacy -I../Drivers/CMSIS/Device/ST/STM32L4xx/Include -I../Drivers/CMSIS/Include -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -fcyclomatic-complexity -MMD -MP -MF"Core/Src/main.d" -MT"Core/Src/main.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "Core/Src/main.o"
+In file included from ../Core/Src/main.c:1:
+../Core/Inc/DAC.h:8: warning: "DAC" redefined
+    8 | #define DAC GPIOA  //DAC Data Bus
+      | 
+In file included from ../Drivers/CMSIS/Device/ST/STM32L4xx/Include/stm32l4xx.h:157,
+                 from ../Drivers/STM32L4xx_HAL_Driver/Inc/stm32l4xx_hal_def.h:29,
+                 from ../Drivers/STM32L4xx_HAL_Driver/Inc/stm32l4xx_hal_rcc.h:27,
+                 from ../Core/Inc/stm32l4xx_hal_conf.h:258,
+                 from ../Drivers/STM32L4xx_HAL_Driver/Inc/stm32l4xx_hal.h:29,
+                 from ../Core/Inc/main.h:30,
+                 from ../Core/Inc/DAC.h:6,
+                 from ../Core/Src/main.c:1:
+../Drivers/CMSIS/Device/ST/STM32L4xx/Include/stm32l4a6xx.h:1484: note: this is the location of the previous definition
+ 1484 | #define DAC                 ((DAC_TypeDef *) DAC1_BASE)
+      | 
+../Core/Src/main.c: In function 'main':
+../Core/Src/main.c:11:2: warning: implicit declaration of function 'LCD_init' [-Wimplicit-function-declaration]
+   11 |  LCD_init();
+      |  ^~~~~~~~
+../Core/Src/main.c:14:9: warning: implicit declaration of function 'LCD_command' [-Wimplicit-function-declaration]
+   14 |  reset: LCD_command(0x1);    //clears display
+      |         ^~~~~~~~~~~
+../Core/Src/main.c:15:2: warning: implicit declaration of function 'LCD_write_str' [-Wimplicit-function-declaration]
+   15 |  LCD_write_str("EE 329 A5 DAC"); //writs to first line
+      |  ^~~~~~~~~~~~~
+../Core/Src/main.c:18:7: warning: unused variable 'count' [-Wunused-variable]
+   18 |   int count = 0;
+      |       ^~~~~
+../Core/Src/main.c:75:1: error: expected declaration or statement at end of input
+   75 | }
+      | ^
+../Core/Src/main.c:17:2: warning: label 'start' defined but not used [-Wunused-label]
+   17 |  start: while (1) {
+      |  ^~~~~
+../Core/Src/main.c:14:2: warning: label 'reset' defined but not used [-Wunused-label]
+   14 |  reset: LCD_command(0x1);    //clears display
+      |  ^~~~~
+../Core/Src/main.c:12:6: warning: unused variable 'volt' [-Wunused-variable]
+   12 |  int volt[3] = { 0, 0, 0 };
+      |      ^~~~
+At top level:
+../Core/Src/main.c:68:7: warning: 'Error_Handler' defined but not used [-Wunused-function]
+   68 |  void Error_Handler(void) {
+      |       ^~~~~~~~~~~~~
+../Core/Src/main.c:22:7: warning: 'SystemClock_Config' defined but not used [-Wunused-function]
+   22 |  void SystemClock_Config(void) {
+      |       ^~~~~~~~~~~~~~~~~~
+make: *** [Core/Src/subdir.mk:46: Core/Src/main.o] Error 1
+"make -j12 all" terminated with exit code 2. Build might be incomplete.
+
+11:44:42 Build Failed. 2 errors, 10 warnings. (took 440ms)
+

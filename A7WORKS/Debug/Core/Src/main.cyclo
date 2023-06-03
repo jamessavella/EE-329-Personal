@@ -1,0 +1,13 @@
+main.c:33:5:main	3
+main.c:72:6:ADC_print	1
+main.c:98:6:ADC_countConversion	4
+main.c:116:5:count_to_volts	1
+main.c:122:6:ADC_voltsConversion	4
+main.c:139:6:ADC_updateArray	2
+main.c:147:6:ADC_getAverage	2
+main.c:155:6:ADC_getMin	3
+main.c:165:6:ADC_getMax	3
+main.c:175:6:ADC_init	3
+main.c:215:6:ADC1_2_IRQHandler	1
+main.c:222:6:SystemClock_Config	4
+main.c:267:6:Error_Handler	1

@@ -1,0 +1,30 @@
+/*
+ * fingerprint.c
+ *
+ *  Created on: May 31, 2023
+ *      Author: james
+ */
+
+#include "main.h"
+#include "fingerprint.h"
+#include "uart.c"
+
+//function that initializes the fingerprint scanner
+/*
+ * Settings:
+ * 1. parameter number 4: N = 6 sets baud rate to 57600 (must match uart baudrate)
+ * 2. parameter number 5: 3 (1-5) security level medium
+ * 3. parameter number 6: 1 (0,1,2,3) = {32, 64, 128, 256} in bytes
+ * 						  Resolution of fingerprint scanner
+ */
+
+void FP_init(void){
+
+}
+
+//checks instructions
+void FP_read_status(void){
+
+}
+
+
