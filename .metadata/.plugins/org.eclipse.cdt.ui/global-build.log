@@ -1,11 +1,230 @@
-16:26:50 **** Incremental Build of configuration Debug for project P4 ****
+13:44:47 **** Incremental Build of configuration Debug for project P4 ****
 make -j12 all 
-arm-none-eabi-gcc "../Core/Src/delay.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DDEBUG -DUSE_HAL_DRIVER -DSTM32L4A6xx -c -I../Core/Inc -I../Drivers/STM32L4xx_HAL_Driver/Inc -I../Drivers/STM32L4xx_HAL_Driver/Inc/Legacy -I../Drivers/CMSIS/Device/ST/STM32L4xx/Include -I../Drivers/CMSIS/Include -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -fcyclomatic-complexity -MMD -MP -MF"Core/Src/delay.d" -MT"Core/Src/delay.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "Core/Src/delay.o"
+arm-none-eabi-gcc "../Core/Src/main.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DDEBUG -DUSE_HAL_DRIVER -DSTM32L4A6xx -c -I../Core/Inc -I../Drivers/STM32L4xx_HAL_Driver/Inc -I../Drivers/STM32L4xx_HAL_Driver/Inc/Legacy -I../Drivers/CMSIS/Device/ST/STM32L4xx/Include -I../Drivers/CMSIS/Include -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -fcyclomatic-complexity -MMD -MP -MF"Core/Src/main.d" -MT"Core/Src/main.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "Core/Src/main.o"
+../Core/Src/main.c: In function 'main':
+../Core/Src/main.c:26:2: warning: implicit declaration of function 'LCD_init' [-Wimplicit-function-declaration]
+   26 |  LCD_init();
+      |  ^~~~~~~~
+../Core/Src/main.c:27:2: warning: implicit declaration of function 'command' [-Wimplicit-function-declaration]
+   27 |  command(0x0C);
+      |  ^~~~~~~
+../Core/Src/main.c:40:2: warning: implicit declaration of function 'lcd_set_cursor_position' [-Wimplicit-function-declaration]
+   40 |  lcd_set_cursor_position(1, 0); // set cursor to second row, first column
+      |  ^~~~~~~~~~~~~~~~~~~~~~~
+../Core/Src/main.c:64:4: warning: implicit declaration of function 'str_write' [-Wimplicit-function-declaration]
+   64 |    str_write("Welcome ");
+      |    ^~~~~~~~~
+../Core/Src/main.c: In function 'USART2_IRQHandler':
+../Core/Src/main.c:108:9: warning: implicit declaration of function 'write' [-Wimplicit-function-declaration]
+  108 |         write(bufferLength + '0');
+      |         ^~~~~
+arm-none-eabi-gcc -o "P4.elf" @"objects.list"   -mcpu=cortex-m4 -T"C:\Users\james\STM32CubeIDE\workspace_1.12.0\P4\STM32L4A6ZGTX_FLASH.ld" --specs=nosys.specs -Wl,-Map="P4.map" -Wl,--gc-sections -static --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -Wl,--start-group -lc -lm -Wl,--end-group
+Finished building target: P4.elf
+ 
+arm-none-eabi-size   P4.elf 
+arm-none-eabi-objdump -h -S  P4.elf  > "P4.list"
+   text	   data	    bss	    dec	    hex	filename
+   8108	     28	   1860	   9996	   270c	P4.elf
+Finished building: default.size.stdout
+ 
+Finished building: P4.list
+ 
+13:44:51 **** Incremental Build of configuration Debug for project P4 ****
+make -j12 all 
+arm-none-eabi-size   P4.elf 
+   text	   data	    bss	    dec	    hex	filename
+   8108	     28	   1860	   9996	   270c	P4.elf
+Finished building: default.size.stdout
+ 
+13:49:22 **** Incremental Build of configuration Debug for project P4 ****
+make -j12 all 
+arm-none-eabi-size   P4.elf 
+   text	   data	    bss	    dec	    hex	filename
+   8108	     28	   1860	   9996	   270c	P4.elf
+Finished building: default.size.stdout
+ 
+13:52:43 **** Incremental Build of configuration Debug for project P4 ****
+make -j12 all 
+arm-none-eabi-gcc "../Core/Src/main.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DDEBUG -DUSE_HAL_DRIVER -DSTM32L4A6xx -c -I../Core/Inc -I../Drivers/STM32L4xx_HAL_Driver/Inc -I../Drivers/STM32L4xx_HAL_Driver/Inc/Legacy -I../Drivers/CMSIS/Device/ST/STM32L4xx/Include -I../Drivers/CMSIS/Include -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -fcyclomatic-complexity -MMD -MP -MF"Core/Src/main.d" -MT"Core/Src/main.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "Core/Src/main.o"
+../Core/Src/main.c: In function 'main':
+../Core/Src/main.c:26:2: warning: implicit declaration of function 'LCD_init' [-Wimplicit-function-declaration]
+   26 |  LCD_init();
+      |  ^~~~~~~~
+../Core/Src/main.c:27:2: warning: implicit declaration of function 'command' [-Wimplicit-function-declaration]
+   27 |  command(0x0C);
+      |  ^~~~~~~
+../Core/Src/main.c:40:2: warning: implicit declaration of function 'lcd_set_cursor_position' [-Wimplicit-function-declaration]
+   40 |  lcd_set_cursor_position(1, 0); // set cursor to second row, first column
+      |  ^~~~~~~~~~~~~~~~~~~~~~~
+../Core/Src/main.c:64:4: warning: implicit declaration of function 'str_write' [-Wimplicit-function-declaration]
+   64 |    str_write("Welcome ");
+      |    ^~~~~~~~~
+../Core/Src/main.c: In function 'USART2_IRQHandler':
+../Core/Src/main.c:108:9: warning: implicit declaration of function 'write' [-Wimplicit-function-declaration]
+  108 |         write(bufferLength + '0');
+      |         ^~~~~
+arm-none-eabi-gcc -o "P4.elf" @"objects.list"   -mcpu=cortex-m4 -T"C:\Users\james\STM32CubeIDE\workspace_1.12.0\P4\STM32L4A6ZGTX_FLASH.ld" --specs=nosys.specs -Wl,-Map="P4.map" -Wl,--gc-sections -static --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -Wl,--start-group -lc -lm -Wl,--end-group
+Finished building target: P4.elf
+ 
+arm-none-eabi-size   P4.elf 
+arm-none-eabi-objdump -h -S  P4.elf  > "P4.list"
+   text	   data	    bss	    dec	    hex	filename
+   8320	     28	   1860	  10208	   27e0	P4.elf
+Finished building: default.size.stdout
+ 
+Finished building: P4.list
+ 
+14:00:05 **** Incremental Build of configuration Debug for project P4 ****
+make -j12 all 
 arm-none-eabi-gcc "../Core/Src/fingerprint.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DDEBUG -DUSE_HAL_DRIVER -DSTM32L4A6xx -c -I../Core/Inc -I../Drivers/STM32L4xx_HAL_Driver/Inc -I../Drivers/STM32L4xx_HAL_Driver/Inc/Legacy -I../Drivers/CMSIS/Device/ST/STM32L4xx/Include -I../Drivers/CMSIS/Include -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -fcyclomatic-complexity -MMD -MP -MF"Core/Src/fingerprint.d" -MT"Core/Src/fingerprint.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "Core/Src/fingerprint.o"
 arm-none-eabi-gcc "../Core/Src/main.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DDEBUG -DUSE_HAL_DRIVER -DSTM32L4A6xx -c -I../Core/Inc -I../Drivers/STM32L4xx_HAL_Driver/Inc -I../Drivers/STM32L4xx_HAL_Driver/Inc/Legacy -I../Drivers/CMSIS/Device/ST/STM32L4xx/Include -I../Drivers/CMSIS/Include -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -fcyclomatic-complexity -MMD -MP -MF"Core/Src/main.d" -MT"Core/Src/main.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "Core/Src/main.o"
-arm-none-eabi-gcc "../Core/Src/stm32l4xx_hal_msp.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DDEBUG -DUSE_HAL_DRIVER -DSTM32L4A6xx -c -I../Core/Inc -I../Drivers/STM32L4xx_HAL_Driver/Inc -I../Drivers/STM32L4xx_HAL_Driver/Inc/Legacy -I../Drivers/CMSIS/Device/ST/STM32L4xx/Include -I../Drivers/CMSIS/Include -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -fcyclomatic-complexity -MMD -MP -MF"Core/Src/stm32l4xx_hal_msp.d" -MT"Core/Src/stm32l4xx_hal_msp.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "Core/Src/stm32l4xx_hal_msp.o"
-arm-none-eabi-gcc "../Core/Src/stm32l4xx_it.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DDEBUG -DUSE_HAL_DRIVER -DSTM32L4A6xx -c -I../Core/Inc -I../Drivers/STM32L4xx_HAL_Driver/Inc -I../Drivers/STM32L4xx_HAL_Driver/Inc/Legacy -I../Drivers/CMSIS/Device/ST/STM32L4xx/Include -I../Drivers/CMSIS/Include -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -fcyclomatic-complexity -MMD -MP -MF"Core/Src/stm32l4xx_it.d" -MT"Core/Src/stm32l4xx_it.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "Core/Src/stm32l4xx_it.o"
-arm-none-eabi-gcc "../Core/Src/uart.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DDEBUG -DUSE_HAL_DRIVER -DSTM32L4A6xx -c -I../Core/Inc -I../Drivers/STM32L4xx_HAL_Driver/Inc -I../Drivers/STM32L4xx_HAL_Driver/Inc/Legacy -I../Drivers/CMSIS/Device/ST/STM32L4xx/Include -I../Drivers/CMSIS/Include -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -fcyclomatic-complexity -MMD -MP -MF"Core/Src/uart.d" -MT"Core/Src/uart.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "Core/Src/uart.o"
+../Core/Src/fingerprint.c: In function 'setAddr':
+../Core/Src/fingerprint.c:48:32: warning: right shift count >= width of type [-Wshift-count-overflow]
+   48 |  char og_adr2 = (og_adr >> 16) >> 0x000000FF;
+      |                                ^~
+../Core/Src/fingerprint.c:49:31: warning: right shift count >= width of type [-Wshift-count-overflow]
+   49 |  char og_adr3 = (og_adr >> 8) >> 0x000000FF;
+      |                               ^~
+../Core/Src/fingerprint.c:52:34: warning: right shift count >= width of type [-Wshift-count-overflow]
+   52 |  char new_adr2 = (new_adr >> 16) >> 0x000000FF;
+      |                                  ^~
+../Core/Src/fingerprint.c:53:33: warning: right shift count >= width of type [-Wshift-count-overflow]
+   53 |  char new_adr3 = (new_adr >> 8) >> 0x000000FF;
+      |                                 ^~
+../Core/Src/main.c: In function 'main':
+../Core/Src/main.c:26:2: warning: implicit declaration of function 'LCD_init' [-Wimplicit-function-declaration]
+   26 |  LCD_init();
+      |  ^~~~~~~~
+../Core/Src/main.c:27:2: warning: implicit declaration of function 'command' [-Wimplicit-function-declaration]
+   27 |  command(0x0C);
+      |  ^~~~~~~
+../Core/Src/main.c:40:2: warning: implicit declaration of function 'lcd_set_cursor_position' [-Wimplicit-function-declaration]
+   40 |  lcd_set_cursor_position(1, 0); // set cursor to second row, first column
+      |  ^~~~~~~~~~~~~~~~~~~~~~~
+../Core/Src/main.c:64:4: warning: implicit declaration of function 'str_write' [-Wimplicit-function-declaration]
+   64 |    str_write("Welcome ");
+      |    ^~~~~~~~~
+../Core/Src/main.c: In function 'USART2_IRQHandler':
+../Core/Src/main.c:108:9: warning: implicit declaration of function 'write' [-Wimplicit-function-declaration]
+  108 |         write(bufferLength + '0');
+      |         ^~~~~
+arm-none-eabi-gcc -o "P4.elf" @"objects.list"   -mcpu=cortex-m4 -T"C:\Users\james\STM32CubeIDE\workspace_1.12.0\P4\STM32L4A6ZGTX_FLASH.ld" --specs=nosys.specs -Wl,-Map="P4.map" -Wl,--gc-sections -static --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -Wl,--start-group -lc -lm -Wl,--end-group
+Finished building target: P4.elf
+ 
+arm-none-eabi-size   P4.elf 
+arm-none-eabi-objdump -h -S  P4.elf  > "P4.list"
+   text	   data	    bss	    dec	    hex	filename
+   8108	     28	   1860	   9996	   270c	P4.elf
+Finished building: default.size.stdout
+ 
+Finished building: P4.list
+ 
+14:03:06 **** Incremental Build of configuration Debug for project P4 ****
+make -j12 all 
+arm-none-eabi-gcc "../Core/Src/main.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DDEBUG -DUSE_HAL_DRIVER -DSTM32L4A6xx -c -I../Core/Inc -I../Drivers/STM32L4xx_HAL_Driver/Inc -I../Drivers/STM32L4xx_HAL_Driver/Inc/Legacy -I../Drivers/CMSIS/Device/ST/STM32L4xx/Include -I../Drivers/CMSIS/Include -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -fcyclomatic-complexity -MMD -MP -MF"Core/Src/main.d" -MT"Core/Src/main.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "Core/Src/main.o"
+../Core/Src/main.c: In function 'main':
+../Core/Src/main.c:26:2: warning: implicit declaration of function 'LCD_init' [-Wimplicit-function-declaration]
+   26 |  LCD_init();
+      |  ^~~~~~~~
+../Core/Src/main.c:27:2: warning: implicit declaration of function 'command' [-Wimplicit-function-declaration]
+   27 |  command(0x0C);
+      |  ^~~~~~~
+../Core/Src/main.c:40:2: warning: implicit declaration of function 'lcd_set_cursor_position' [-Wimplicit-function-declaration]
+   40 |  lcd_set_cursor_position(1, 0); // set cursor to second row, first column
+      |  ^~~~~~~~~~~~~~~~~~~~~~~
+../Core/Src/main.c:64:4: warning: implicit declaration of function 'str_write' [-Wimplicit-function-declaration]
+   64 |    str_write("Welcome ");
+      |    ^~~~~~~~~
+../Core/Src/main.c: In function 'USART2_IRQHandler':
+../Core/Src/main.c:125:9: warning: implicit declaration of function 'write' [-Wimplicit-function-declaration]
+  125 |         write(bufferLength + '0');
+      |         ^~~~~
+arm-none-eabi-gcc -o "P4.elf" @"objects.list"   -mcpu=cortex-m4 -T"C:\Users\james\STM32CubeIDE\workspace_1.12.0\P4\STM32L4A6ZGTX_FLASH.ld" --specs=nosys.specs -Wl,-Map="P4.map" -Wl,--gc-sections -static --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -Wl,--start-group -lc -lm -Wl,--end-group
+Finished building target: P4.elf
+ 
+arm-none-eabi-size   P4.elf 
+arm-none-eabi-objdump -h -S  P4.elf  > "P4.list"
+   text	   data	    bss	    dec	    hex	filename
+   8108	     28	   1860	   9996	   270c	P4.elf
+Finished building: default.size.stdout
+ 
+Finished building: P4.list
+ 
+14:04:36 **** Incremental Build of configuration Debug for project P4 ****
+make -j12 all 
+arm-none-eabi-gcc "../Core/Src/main.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DDEBUG -DUSE_HAL_DRIVER -DSTM32L4A6xx -c -I../Core/Inc -I../Drivers/STM32L4xx_HAL_Driver/Inc -I../Drivers/STM32L4xx_HAL_Driver/Inc/Legacy -I../Drivers/CMSIS/Device/ST/STM32L4xx/Include -I../Drivers/CMSIS/Include -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -fcyclomatic-complexity -MMD -MP -MF"Core/Src/main.d" -MT"Core/Src/main.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "Core/Src/main.o"
+../Core/Src/main.c: In function 'main':
+../Core/Src/main.c:26:2: warning: implicit declaration of function 'LCD_init' [-Wimplicit-function-declaration]
+   26 |  LCD_init();
+      |  ^~~~~~~~
+../Core/Src/main.c:27:2: warning: implicit declaration of function 'command' [-Wimplicit-function-declaration]
+   27 |  command(0x0C);
+      |  ^~~~~~~
+../Core/Src/main.c:40:2: warning: implicit declaration of function 'lcd_set_cursor_position' [-Wimplicit-function-declaration]
+   40 |  lcd_set_cursor_position(1, 0); // set cursor to second row, first column
+      |  ^~~~~~~~~~~~~~~~~~~~~~~
+../Core/Src/main.c:64:4: warning: implicit declaration of function 'str_write' [-Wimplicit-function-declaration]
+   64 |    str_write("Welcome ");
+      |    ^~~~~~~~~
+../Core/Src/main.c: In function 'USART2_IRQHandler':
+../Core/Src/main.c:109:9: warning: implicit declaration of function 'write' [-Wimplicit-function-declaration]
+  109 |         write('yay');
+      |         ^~~~~
+../Core/Src/main.c:109:15: warning: multi-character character constant [-Wmultichar]
+  109 |         write('yay');
+      |               ^~~~~
+arm-none-eabi-gcc -o "P4.elf" @"objects.list"   -mcpu=cortex-m4 -T"C:\Users\james\STM32CubeIDE\workspace_1.12.0\P4\STM32L4A6ZGTX_FLASH.ld" --specs=nosys.specs -Wl,-Map="P4.map" -Wl,--gc-sections -static --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -Wl,--start-group -lc -lm -Wl,--end-group
+Finished building target: P4.elf
+ 
+arm-none-eabi-size   P4.elf 
+arm-none-eabi-objdump -h -S  P4.elf  > "P4.list"
+   text	   data	    bss	    dec	    hex	filename
+   8124	     28	   1860	  10012	   271c	P4.elf
+Finished building: default.size.stdout
+ 
+Finished building: P4.list
+ 
+14:05:51 **** Incremental Build of configuration Debug for project P4 ****
+make -j12 all 
+arm-none-eabi-size   P4.elf 
+   text	   data	    bss	    dec	    hex	filename
+   8124	     28	   1860	  10012	   271c	P4.elf
+Finished building: default.size.stdout
+ 
+14:07:45 **** Incremental Build of configuration Debug for project P4 ****
+make -j12 all 
+arm-none-eabi-gcc "../Core/Src/main.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DDEBUG -DUSE_HAL_DRIVER -DSTM32L4A6xx -c -I../Core/Inc -I../Drivers/STM32L4xx_HAL_Driver/Inc -I../Drivers/STM32L4xx_HAL_Driver/Inc/Legacy -I../Drivers/CMSIS/Device/ST/STM32L4xx/Include -I../Drivers/CMSIS/Include -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -fcyclomatic-complexity -MMD -MP -MF"Core/Src/main.d" -MT"Core/Src/main.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "Core/Src/main.o"
+../Core/Src/main.c: In function 'main':
+../Core/Src/main.c:26:2: warning: implicit declaration of function 'LCD_init' [-Wimplicit-function-declaration]
+   26 |  LCD_init();
+      |  ^~~~~~~~
+../Core/Src/main.c:27:2: warning: implicit declaration of function 'command' [-Wimplicit-function-declaration]
+   27 |  command(0x0C);
+      |  ^~~~~~~
+../Core/Src/main.c:40:2: warning: implicit declaration of function 'lcd_set_cursor_position' [-Wimplicit-function-declaration]
+   40 |  lcd_set_cursor_position(1, 0); // set cursor to second row, first column
+      |  ^~~~~~~~~~~~~~~~~~~~~~~
+../Core/Src/main.c:64:4: warning: implicit declaration of function 'str_write' [-Wimplicit-function-declaration]
+   64 |    str_write("Welcome ");
+      |    ^~~~~~~~~
+../Core/Src/main.c: In function 'USART2_IRQHandler':
+../Core/Src/main.c:139:9: warning: implicit declaration of function 'write' [-Wimplicit-function-declaration]
+  139 |         write(index0 + '0');
+      |         ^~~~~
+arm-none-eabi-gcc -o "P4.elf" @"objects.list"   -mcpu=cortex-m4 -T"C:\Users\james\STM32CubeIDE\workspace_1.12.0\P4\STM32L4A6ZGTX_FLASH.ld" --specs=nosys.specs -Wl,-Map="P4.map" -Wl,--gc-sections -static --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -Wl,--start-group -lc -lm -Wl,--end-group
+Finished building target: P4.elf
+ 
+arm-none-eabi-size   P4.elf 
+arm-none-eabi-objdump -h -S  P4.elf  > "P4.list"
+   text	   data	    bss	    dec	    hex	filename
+   8096	     28	   1860	   9984	   2700	P4.elf
+Finished building: default.size.stdout
+ 
+Finished building: P4.list
+ 
+14:21:53 **** Incremental Build of configuration Debug for project P4 ****
+make -j12 all 
+arm-none-eabi-gcc "../Core/Src/fingerprint.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DDEBUG -DUSE_HAL_DRIVER -DSTM32L4A6xx -c -I../Core/Inc -I../Drivers/STM32L4xx_HAL_Driver/Inc -I../Drivers/STM32L4xx_HAL_Driver/Inc/Legacy -I../Drivers/CMSIS/Device/ST/STM32L4xx/Include -I../Drivers/CMSIS/Include -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -fcyclomatic-complexity -MMD -MP -MF"Core/Src/fingerprint.d" -MT"Core/Src/fingerprint.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "Core/Src/fingerprint.o"
 ../Core/Src/fingerprint.c: In function 'setAddr':
 ../Core/Src/fingerprint.c:48:32: warning: right shift count >= width of type [-Wshift-count-overflow]
    48 |  char og_adr2 = (og_adr >> 16) >> 0x000000FF;
@@ -25,7 +244,84 @@ Finished building target: P4.elf
 arm-none-eabi-size   P4.elf 
 arm-none-eabi-objdump -h -S  P4.elf  > "P4.list"
    text	   data	    bss	    dec	    hex	filename
-   6068	     20	   1836	   7924	   1ef4	P4.elf
+   8096	     28	   1860	   9984	   2700	P4.elf
+Finished building: default.size.stdout
+ 
+Finished building: P4.list
+ 
+14:27:54 **** Incremental Build of configuration Debug for project P4 ****
+make -j12 all 
+arm-none-eabi-gcc "../Core/Src/main.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DDEBUG -DUSE_HAL_DRIVER -DSTM32L4A6xx -c -I../Core/Inc -I../Drivers/STM32L4xx_HAL_Driver/Inc -I../Drivers/STM32L4xx_HAL_Driver/Inc/Legacy -I../Drivers/CMSIS/Device/ST/STM32L4xx/Include -I../Drivers/CMSIS/Include -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -fcyclomatic-complexity -MMD -MP -MF"Core/Src/main.d" -MT"Core/Src/main.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "Core/Src/main.o"
+arm-none-eabi-gcc "../Core/Src/uart.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DDEBUG -DUSE_HAL_DRIVER -DSTM32L4A6xx -c -I../Core/Inc -I../Drivers/STM32L4xx_HAL_Driver/Inc -I../Drivers/STM32L4xx_HAL_Driver/Inc/Legacy -I../Drivers/CMSIS/Device/ST/STM32L4xx/Include -I../Drivers/CMSIS/Include -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -fcyclomatic-complexity -MMD -MP -MF"Core/Src/uart.d" -MT"Core/Src/uart.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "Core/Src/uart.o"
+../Core/Src/main.c: In function 'main':
+../Core/Src/main.c:26:2: warning: implicit declaration of function 'LCD_init' [-Wimplicit-function-declaration]
+   26 |  LCD_init();
+      |  ^~~~~~~~
+../Core/Src/main.c:27:2: warning: implicit declaration of function 'command' [-Wimplicit-function-declaration]
+   27 |  command(0x0C);
+      |  ^~~~~~~
+../Core/Src/main.c:40:2: warning: implicit declaration of function 'lcd_set_cursor_position' [-Wimplicit-function-declaration]
+   40 |  lcd_set_cursor_position(1, 0); // set cursor to second row, first column
+      |  ^~~~~~~~~~~~~~~~~~~~~~~
+../Core/Src/main.c:64:4: warning: implicit declaration of function 'str_write' [-Wimplicit-function-declaration]
+   64 |    str_write("Welcome ");
+      |    ^~~~~~~~~
+../Core/Src/main.c: In function 'USART2_IRQHandler':
+../Core/Src/main.c:139:9: warning: implicit declaration of function 'write' [-Wimplicit-function-declaration]
+  139 |         write(index0 + '0');
+      |         ^~~~~
+arm-none-eabi-gcc -o "P4.elf" @"objects.list"   -mcpu=cortex-m4 -T"C:\Users\james\STM32CubeIDE\workspace_1.12.0\P4\STM32L4A6ZGTX_FLASH.ld" --specs=nosys.specs -Wl,-Map="P4.map" -Wl,--gc-sections -static --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -Wl,--start-group -lc -lm -Wl,--end-group
+Finished building target: P4.elf
+ 
+arm-none-eabi-size   P4.elf 
+arm-none-eabi-objdump -h -S  P4.elf  > "P4.list"
+   text	   data	    bss	    dec	    hex	filename
+   8096	     28	   1860	   9984	   2700	P4.elf
+Finished building: default.size.stdout
+ 
+Finished building: P4.list
+ 
+14:30:08 **** Incremental Build of configuration Debug for project P4 ****
+make -j12 all 
+arm-none-eabi-gcc "../Core/Src/uart.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DDEBUG -DUSE_HAL_DRIVER -DSTM32L4A6xx -c -I../Core/Inc -I../Drivers/STM32L4xx_HAL_Driver/Inc -I../Drivers/STM32L4xx_HAL_Driver/Inc/Legacy -I../Drivers/CMSIS/Device/ST/STM32L4xx/Include -I../Drivers/CMSIS/Include -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -fcyclomatic-complexity -MMD -MP -MF"Core/Src/uart.d" -MT"Core/Src/uart.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "Core/Src/uart.o"
+arm-none-eabi-gcc -o "P4.elf" @"objects.list"   -mcpu=cortex-m4 -T"C:\Users\james\STM32CubeIDE\workspace_1.12.0\P4\STM32L4A6ZGTX_FLASH.ld" --specs=nosys.specs -Wl,-Map="P4.map" -Wl,--gc-sections -static --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -Wl,--start-group -lc -lm -Wl,--end-group
+Finished building target: P4.elf
+ 
+arm-none-eabi-size   P4.elf 
+arm-none-eabi-objdump -h -S  P4.elf  > "P4.list"
+   text	   data	    bss	    dec	    hex	filename
+   8096	     28	   1860	   9984	   2700	P4.elf
+Finished building: default.size.stdout
+ 
+Finished building: P4.list
+ 
+14:35:45 **** Incremental Build of configuration Debug for project P4 ****
+make -j12 all 
+arm-none-eabi-gcc "../Core/Src/main.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DDEBUG -DUSE_HAL_DRIVER -DSTM32L4A6xx -c -I../Core/Inc -I../Drivers/STM32L4xx_HAL_Driver/Inc -I../Drivers/STM32L4xx_HAL_Driver/Inc/Legacy -I../Drivers/CMSIS/Device/ST/STM32L4xx/Include -I../Drivers/CMSIS/Include -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -fcyclomatic-complexity -MMD -MP -MF"Core/Src/main.d" -MT"Core/Src/main.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "Core/Src/main.o"
+../Core/Src/main.c: In function 'main':
+../Core/Src/main.c:26:2: warning: implicit declaration of function 'LCD_init' [-Wimplicit-function-declaration]
+   26 |  LCD_init();
+      |  ^~~~~~~~
+../Core/Src/main.c:27:2: warning: implicit declaration of function 'command' [-Wimplicit-function-declaration]
+   27 |  command(0x0C);
+      |  ^~~~~~~
+../Core/Src/main.c:40:2: warning: implicit declaration of function 'lcd_set_cursor_position' [-Wimplicit-function-declaration]
+   40 |  lcd_set_cursor_position(1, 0); // set cursor to second row, first column
+      |  ^~~~~~~~~~~~~~~~~~~~~~~
+../Core/Src/main.c:64:4: warning: implicit declaration of function 'str_write' [-Wimplicit-function-declaration]
+   64 |    str_write("Welcome ");
+      |    ^~~~~~~~~
+../Core/Src/main.c: In function 'USART2_IRQHandler':
+../Core/Src/main.c:139:9: warning: implicit declaration of function 'write' [-Wimplicit-function-declaration]
+  139 |         write(index0 + '0');
+      |         ^~~~~
+arm-none-eabi-gcc -o "P4.elf" @"objects.list"   -mcpu=cortex-m4 -T"C:\Users\james\STM32CubeIDE\workspace_1.12.0\P4\STM32L4A6ZGTX_FLASH.ld" --specs=nosys.specs -Wl,-Map="P4.map" -Wl,--gc-sections -static --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -Wl,--start-group -lc -lm -Wl,--end-group
+Finished building target: P4.elf
+ 
+arm-none-eabi-size   P4.elf 
+arm-none-eabi-objdump -h -S  P4.elf  > "P4.list"
+   text	   data	    bss	    dec	    hex	filename
+   8096	     28	   1876	  10000	   2710	P4.elf
 Finished building: default.size.stdout
  
 Finished building: P4.list

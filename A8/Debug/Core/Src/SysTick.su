@@ -1,0 +1,2 @@
+../Core/Src/SysTick.c:25:6:SysTick_setup	4	static
+../Core/Src/SysTick.c:31:6:delay_u	16	static
