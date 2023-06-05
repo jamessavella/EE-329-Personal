@@ -18,6 +18,10 @@
  * 						  Resolution of fingerprint scanner
  */
 
+//
+uint32_t ACK_LENGTH = 0;
+
+
 void FP_init(void) {
 }
 
@@ -33,6 +37,7 @@ void handshake(void) {
 		USART2->TDR = handshake[i];
 		i++;	//increments array
 	}
+	ACK_LENGTH = 12; //Acknowledge packet 12 bytes long
 }
 
 //Command to set address  might not need (need to verify command functionality
@@ -63,6 +68,7 @@ void setAddr(uint32_t og_adr, uint32_t new_adr) {
 		USART2->TDR = set[i];
 		i++;	//increments array
 	}
+	ACK_LENGTH = 12; //Acknowledge packet 12 bytes long
 }
 
 //Sets parameters
@@ -90,7 +96,7 @@ void SetSysPara(char param, char setting) {
 		USART2->TDR = sys[i];
 		i++;	//increments array
 	}
-
+	ACK_LENGTH = 12; //Acknowledge packet 12 bytes long
 }
 
 
@@ -107,7 +113,10 @@ void templateNum(void) {
 		USART2->TDR = num[i];
 		i++;	//increments array
 	}
+	ACK_LENGTH = 14; //Acknowledge packet 14 bytes long
 }
+
+
 void genImg(void){
 	//might need to adjust address (will I have to change this? make current module address a global variable?
 	char gen[12] = { 0xEF, 0x01, 0xFF, 0xFF, 0xFF, 0xFF, 0x01, 0x00, 0x03, 0x01,
@@ -120,24 +129,56 @@ void genImg(void){
 		USART2->TDR = gen[i];
 		i++;	//increments array
 	}
+	ACK_LENGTH = 12; //Acknowledge packet 12 bytes long
 }
 
 
-//----------PROBLEM: not writing 0x09 final byte
-//combines template from both inputs and generates a template
-void regMode(void) {
+
+//uploades fingerprint ID to MCU; input parameter is BufferID (buffernumber)
+void upChar(char buffID) {
+	//sum = package identifier + package length + instruction code + package contents
+	//IMPORTANT is the parameter number part of the checksum?? need to verify by checking if it exceeds 2 bytes
+	uint16_t sum = 0x01 + 0x0004 + 0x08 + buffID;//0x0007 package length, 0x01 package identifer
+	char sum1 = (sum >> 8) & 0xFF;
+	char sum2 = sum & 0xFF;
+
 	//might need to adjust address (will I have to change this? make current module address a global variable?
-	char reg[12] = { 0xEF, 0x01, 0xFF, 0xFF, 0xFF, 0xFF, 0x01, 0x00, 0x03, 0x05,//instruction
-			0x00, 0x09 };
+	char up[13] = { 0xEF, 0x01, 0xFF, 0xFF, 0xFF, 0xFF, 0x01, 0x00, 0x04, 0x08, //instructions
+			buffID, sum1, sum2 };
 
 	uint8_t i = 0;		//iteration counter
-	while (i < 12) { //sends data from lowest byte to highest byte
+	while (i < 13) { //sends data from lowest byte to highest byte
 		while (!(USART2->ISR & USART_ISR_TXE))
 			; //waits for empty transmit
-		USART2->TDR = reg[i];
+		USART2->TDR = up[i];
 		i++;	//increments array
 	}
+	ACK_LENGTH = 12; //Acknowledge packet 12 bytes long
 }
+
+//downloads fingerprint ID from MCU;
+void downChar(char buffID) {
+	//sum = package identifier + package length + instruction code + package contents
+	//IMPORTANT is the parameter number part of the checksum?? need to verify by checking if it exceeds 2 bytes
+	uint16_t sum = 0x01 + 0x0004 + 0x09 + buffID;//0x0007 package length, 0x01 package identifer
+	char sum1 = (sum >> 8) & 0xFF;
+	char sum2 = sum & 0xFF;
+
+	//might need to adjust address (will I have to change this? make current module address a global variable?
+	char down[13] = { 0xEF, 0x01, 0xFF, 0xFF, 0xFF, 0xFF, 0x01, 0x00, 0x04,
+			0x09, //instructions
+			buffID, sum1, sum2 };
+
+	uint8_t i = 0;		//iteration counter
+	while (i < 13) { //sends data from lowest byte to highest byte
+		while (!(USART2->ISR & USART_ISR_TXE))
+			; //waits for empty transmit
+		USART2->TDR = down[i];
+		i++;	//increments array
+	}
+	ACK_LENGTH = 12; //Acknowledge packet 12 bytes long
+}
+
 
 //--------------
 //--------------ALL CHECKSUM BELOW IS CORRECT:
@@ -162,50 +203,25 @@ void Img2Tz(char buffID){
 		USART2->TDR = img[i];
 		i++;	//increments array
 	}
+	ACK_LENGTH = 12; //Acknowledge packet 12 bytes long
 }
 
 
-//uploades fingerprint ID to MCU; input parameter is BufferID (buffernumber)
-void upChar(char buffID) {
-	//sum = package identifier + package length + instruction code + package contents
-	//IMPORTANT is the parameter number part of the checksum?? need to verify by checking if it exceeds 2 bytes
-	uint16_t sum = 0x01 + 0x0004 + 0x08 + buffID;//0x0007 package length, 0x01 package identifer
-	char sum1 = (sum >> 8) & 0xFF;
-	char sum2 = sum & 0xFF;
-
+//----------PROBLEM: not writing 0x09 final byte
+//combines template from both inputs and generates a template
+void regMode(void) {
 	//might need to adjust address (will I have to change this? make current module address a global variable?
-	char up[13] = { 0xEF, 0x01, 0xFF, 0xFF, 0xFF, 0xFF, 0x01, 0x00, 0x04, 0x08, //instructions
-			buffID, sum1, sum2 };
+	char reg[12] = { 0xEF, 0x01, 0xFF, 0xFF, 0xFF, 0xFF, 0x01, 0x00, 0x03, 0x05,//instruction
+			0x00, 0x09 };
 
 	uint8_t i = 0;		//iteration counter
-	while (i < 13) { //sends data from lowest byte to highest byte
+	while (i < 12) { //sends data from lowest byte to highest byte
 		while (!(USART2->ISR & USART_ISR_TXE))
 			; //waits for empty transmit
-		USART2->TDR = up[i];
+		USART2->TDR = reg[i];
 		i++;	//increments array
 	}
-}
-
-//downloads fingerprint ID from MCU;
-void downChar(char buffID) {
-	//sum = package identifier + package length + instruction code + package contents
-	//IMPORTANT is the parameter number part of the checksum?? need to verify by checking if it exceeds 2 bytes
-	uint16_t sum = 0x01 + 0x0004 + 0x09 + buffID;//0x0007 package length, 0x01 package identifer
-	char sum1 = (sum >> 8) & 0xFF;
-	char sum2 = sum & 0xFF;
-
-	//might need to adjust address (will I have to change this? make current module address a global variable?
-	char down[13] = { 0xEF, 0x01, 0xFF, 0xFF, 0xFF, 0xFF, 0x01, 0x00, 0x04,
-			0x09, //instructions
-			buffID, sum1, sum2 };
-
-	uint8_t i = 0;		//iteration counter
-	while (i < 13) { //sends data from lowest byte to highest byte
-		while (!(USART2->ISR & USART_ISR_TXE))
-			; //waits for empty transmit
-		USART2->TDR = down[i];
-		i++;	//increments array
-	}
+	ACK_LENGTH = 12; //Acknowledge packet 12 bytes long
 }
 
 //stores template at specified buffer (buff1/buff2) at specified location (pageID)
@@ -231,6 +247,7 @@ void store(char buffID, uint16_t pageID) {
 		USART2->TDR = sto[i];
 		i++;	//increments array
 	}
+	ACK_LENGTH = 12; //Acknowledge packet 12 bytes long
 }
 
 //loads template at specified location (page ID) to specified buffer (buff1/buff2)
@@ -256,6 +273,7 @@ void loadChar(char buffID, uint16_t pageID) {
 		USART2->TDR = load[i];
 		i++;	//increments array
 	}
+	ACK_LENGTH = 12; //Acknowledge packet 12 bytes long
 }
 
 //deletes specified number of templates (N) from specified location (pageID)
@@ -283,6 +301,7 @@ void deletChar(uint16_t pageID, uint16_t N) {
 		USART2->TDR = load[i];
 		i++;	//increments array
 	}
+	ACK_LENGTH = 12; //Acknowledge packet 12 bytes long
 }
 
 //empties entire data base
@@ -298,6 +317,7 @@ void empty(void) {
 		USART2->TDR = emp[i];
 		i++;	//increments array
 	}
+	ACK_LENGTH = 12; //Acknowledge packet 12 bytes long
 }
 
 //compares templates loaded onto template
@@ -313,6 +333,7 @@ void match(void) {
 		USART2->TDR = mat[i];
 		i++;	//increments array
 	}
+	ACK_LENGTH = 14; //Acknowledge packet 14 bytes long
 }
 
 //search whole library to find what matches
@@ -340,5 +361,6 @@ void search(char buffID, uint16_t startPage, uint16_t pageNum) {
 		USART2->TDR = ser[i];
 		i++;	//increments array
 	}
+	ACK_LENGTH = 16; //Acknowledge packet 12 bytes long
 }
 

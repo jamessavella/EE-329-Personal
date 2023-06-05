@@ -33,6 +33,7 @@ void command(uint8_t command);
 void write(char letter);
 void lcd_set_cursor_position(uint8_t row, uint8_t col);
 int LCD_convert_ascii_to_time ( uint8_t asctime );
+void clear_LCD(void);
 
 //data bus array
 uint16_t GPIO_Pin[] = {D4, D5, D6, D7};
@@ -223,4 +224,13 @@ int decrement_time(int time) {
 
 int LCD_convert_ascii_to_time ( uint8_t asctime ){
 	return (0x0F & asctime);
+}
+
+void clear_LCD(void) {
+	lcd_set_cursor_position(0, 0);
+	str_write("                ");
+	delay_us(100);
+	lcd_set_cursor_position(1, 0);
+	str_write("                ");
+	delay_us(100);
 }

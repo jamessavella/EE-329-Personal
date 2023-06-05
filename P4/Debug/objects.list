@@ -1,3 +1,4 @@
+"./Core/Src/FP_process.o"
 "./Core/Src/delay.o"
 "./Core/Src/fingerprint.o"
 "./Core/Src/lcd.o"

@@ -1,0 +1,26 @@
+
+#ifndef __MAIN_H
+#define __MAIN_H
+
+
+
+#ifdef __cplusplus
+extern "C" {
+#endif
+
+
+//extern uint8_t ConfirmationCode = 0;
+
+
+#include "stm32l4xx_hal.h"
+
+
+void Error_Handler(void);
+
+
+
+#ifdef __cplusplus
+}
+#endif
+
+#endif
