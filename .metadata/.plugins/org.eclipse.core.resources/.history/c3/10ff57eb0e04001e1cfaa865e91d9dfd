@@ -1,0 +1,105 @@
+/*
+ * FP_process.c
+ *
+ *  Created on: Jun 5, 2023
+ *      Author: james
+ */
+
+#include "main.h"
+#include "FP_process.h"
+#include "fingerprint.h"
+#include "delay.h"
+#include "lcd.h"
+
+void FP_enroll(void) {
+	/* Order of Operations
+	 * 1. Get user to type name associated with FP
+	 * 2. Get User Input twice
+	 */
+	genImg();	//checks fingerprint first
+	delay_us(500000); //NEED ALWAYS CALL THIS DELAY EVERYTIME I SEND A COMMAND
+
+	uint8_t mem_local = 0; //initializes mem local
+//	while (mem_local < 5) {	//takes 5 user inputs
+	for (int buff_local = 1; buff_local <= 2; buff_local++) {
+//			while (ConfirmationCode == 0x02) {//No finger detected get finger
+		while (ConfirmationCode != 0x00) {	//No finger detected get finger
+//				genImg();	//checks fingerprint
+//				delay_us(500000); //NEED ALWAYS CALL THIS DELAY EVERYTIME I SEND A COMMAND
+			if (buff_local == 1) {
+				lcd_set_cursor_position(0, 0);
+				str_write("Place finger    ");
+				lcd_set_cursor_position(1, 0);
+				str_write("                ");
+			} else if (buff_local == 2) {
+				lcd_set_cursor_position(0, 0);
+				str_write("Place finger ");
+				lcd_set_cursor_position(1, 0);
+				str_write("again         ");
+
+			}
+			genImg();	//checks fingerprint
+			delay_us(500000); //NEED ALWAYS CALL THIS DELAY EVERYTIME I SEND A COMMAND
+
+		}
+		if (buff_local == 1) Img2Tz(0x01); //stores in buffer1
+		if (buff_local == 2 )Img2Tz(0x02); //stores in buffer2
+
+//		Img2Tz(buff_local);
+//		delay_us(500000); //NEED ALWAYS CALL THIS DELAY EVERYTIME I SEND A COMMAND
+
+		lcd_set_cursor_position(0, 0);
+		str_write("Got Finger!     ");
+
+		while (ConfirmationCode == 0x00) { //to wait til user removes finger
+//				lcd_set_cursor_position(1, 0);
+//				str_write("Got finger!     ");
+
+
+
+			lcd_set_cursor_position(1, 0);
+			str_write("Remove Finger   ");
+			genImg();	//checks fingerprint
+			delay_us(500000); //NEED ALWAYS CALL THIS DELAY EVERYTIME I SEND A COMMAND
+		}
+	}
+
+//		lcd_set_cursor_position(0, 0);
+//		str_write("Outside for loop");
+//		delay_us(500000);
+//
+
+//
+	match(); //checks to see buffers match
+	delay_us(500000); //NEED ALWAYS CALL THIS DELAY EVERYTIME I SEND A COMMAND
+	if (ConfirmationCode == 0x00) { //Fingerprint matches!
+		lcd_set_cursor_position(0, 0);
+		str_write("FP Match! :)    ");
+		lcd_set_cursor_position(1, 0);
+		str_write("in memID = ");
+		write(mem_local + '0');
+		regMode();	//generates FP template to store to memory
+		delay_us(500000); //NEED ALWAYS CALL THIS DELAY EVERYTIME I SEND A COMMAND
+		store(1, mem_local);	//stores ID to memory
+		delay_us(500000); //NEED ALWAYS CALL THIS DELAY EVERYTIME I SEND A COMMAND
+//			mem_local++;	//increments mem_local
+	} else {	//Fingerprints do not match! :(
+		lcd_set_cursor_position(0, 0);
+		str_write("No Match! :(    ");
+		lcd_set_cursor_position(1,0);
+		str_write("                ");
+
+		for (int i = 0; i < ACK_LENGTH; i++){
+			lcd_set_cursor_position(1,0);
+			write('0' + errorbuffer[i]);
+			delay_us(500000); //NEED ALWAYS CALL THIS DELAY EVERYTIME I SEND A COMMAND
+		}
+//		while (!(LPUART1->ISR & USART_ISR_TXE))
+//			;
+//		LPUART1->TDR = ConfirmationCode;
+//		delay_us(1000);
+
+	}
+//	}
+}
+

@@ -23,8 +23,8 @@ Core/Src/main.o: ../Core/Src/main.c ../Core/Inc/main.h \
  ../Drivers/STM32L4xx_HAL_Driver/Inc/stm32l4xx_hal_flash_ramfunc.h \
  ../Drivers/STM32L4xx_HAL_Driver/Inc/stm32l4xx_hal_pwr.h \
  ../Drivers/STM32L4xx_HAL_Driver/Inc/stm32l4xx_hal_pwr_ex.h \
- ../Core/Inc/uart.h ../Core/Inc/delay.h ../Core/Inc/main.h \
- ../Core/Inc/fingerprint.h ../Core/Inc/FP_process.h
+ ../Core/Inc/uart.h ../Core/Inc/lcd.h ../Core/Inc/main.h \
+ ../Core/Inc/delay.h ../Core/Inc/fingerprint.h ../Core/Inc/FP_process.h
 ../Core/Inc/main.h:
 ../Drivers/STM32L4xx_HAL_Driver/Inc/stm32l4xx_hal.h:
 ../Core/Inc/stm32l4xx_hal_conf.h:
@@ -51,7 +51,8 @@ Core/Src/main.o: ../Core/Src/main.c ../Core/Inc/main.h \
 ../Drivers/STM32L4xx_HAL_Driver/Inc/stm32l4xx_hal_pwr.h:
 ../Drivers/STM32L4xx_HAL_Driver/Inc/stm32l4xx_hal_pwr_ex.h:
 ../Core/Inc/uart.h:
-../Core/Inc/delay.h:
+../Core/Inc/lcd.h:
 ../Core/Inc/main.h:
+../Core/Inc/delay.h:
 ../Core/Inc/fingerprint.h:
 ../Core/Inc/FP_process.h:

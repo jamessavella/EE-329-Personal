@@ -29,7 +29,7 @@ void empty(void);
 void match(void);
 void serach(char buffID, uint16_t startPage, uint16_t pageNum);
 void genImg(void);
-
+void Img2Tz(char buffID);
 
 
 #endif /* INC_FINGERPRINT_H_ */

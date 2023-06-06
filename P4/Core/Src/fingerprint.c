@@ -8,6 +8,7 @@
 #include "main.h"
 #include "fingerprint.h"
 #include "uart.h"
+#include "delay.h"
 
 //function that initializes the fingerprint scanner
 /*
@@ -18,8 +19,8 @@
  * 						  Resolution of fingerprint scanner
  */
 
-//
-uint32_t ACK_LENGTH = 0;
+uint32_t ACK_LENGTH = 0; //global variable
+#define CMD_DELAY 500000 //delay length to call for each command length
 
 
 void FP_init(void) {
@@ -38,38 +39,40 @@ void handshake(void) {
 		i++;	//increments array
 	}
 	ACK_LENGTH = 12; //Acknowledge packet 12 bytes long
+	delay_us(CMD_DELAY); //to separate transmission and received data
 }
 
-//Command to set address  might not need (need to verify command functionality
-void setAddr(uint32_t og_adr, uint32_t new_adr) {
-	//sum = package identifier + package length + instruction code + package contents
-	//IMPORTANT is new_adr part of checksum? prob not would exceed 2 byte
-	uint16_t sum = 0x01 + 0x0007 + 0x15;//0x0007 package length, 0x01 package identifer
-	char sum1 = (sum >> 8) & 0xFF;
-	char sum2 = sum & 0xFF;
-
-	//address byte addressable conversion for orginal address and new address
-	char og_adr1 = (og_adr >> 24) & 0x000000FF;
-	char og_adr2 = (og_adr >> 16) >> 0x000000FF;
-	char og_adr3 = (og_adr >> 8) >> 0x000000FF;
-	char og_adr4 = (og_adr & 0xFF);
-	char new_adr1 = (new_adr >> 24) & 0x000000FF;
-	char new_adr2 = (new_adr >> 16) >> 0x000000FF;
-	char new_adr3 = (new_adr >> 8) >> 0x000000FF;
-	char new_adr4 = (new_adr & 0xFF);
-
-	char set[16] = { 0xEF, 0x01, og_adr1, og_adr2, og_adr3, og_adr4, 0x01, 0x00, //instruction
-			0x07, 0x15, new_adr1, new_adr2, new_adr3, new_adr4, sum1, sum2 };
-
-	uint8_t i = 0;		//iteration counter
-	while (i < 16) { //sends data from lowest byte to highest byte
-		while (!(USART2->ISR & USART_ISR_TXE))
-			; //waits for empty transmit
-		USART2->TDR = set[i];
-		i++;	//increments array
-	}
-	ACK_LENGTH = 12; //Acknowledge packet 12 bytes long
-}
+//---------------NOT USING: does not involve scope of project ==> used to communicate across multiple fingerprint scanners
+////Command to set address  might not need (need to verify command functionality
+//void setAddr(uint32_t og_adr, uint32_t new_adr) {
+//	//sum = package identifier + package length + instruction code + package contents
+//	//IMPORTANT is new_adr part of checksum? prob not would exceed 2 byte
+//	uint16_t sum = 0x01 + 0x0007 + 0x15;//0x0007 package length, 0x01 package identifer
+//	char sum1 = (sum >> 8) & 0xFF;
+//	char sum2 = sum & 0xFF;
+//
+//	//address byte addressable conversion for orginal address and new address
+//	char og_adr1 = (og_adr >> 24) & 0x000000FF;
+//	char og_adr2 = (og_adr >> 16) >> 0x000000FF;
+//	char og_adr3 = (og_adr >> 8) >> 0x000000FF;
+//	char og_adr4 = (og_adr & 0xFF);
+//	char new_adr1 = (new_adr >> 24) & 0x000000FF;
+//	char new_adr2 = (new_adr >> 16) >> 0x000000FF;
+//	char new_adr3 = (new_adr >> 8) >> 0x000000FF;
+//	char new_adr4 = (new_adr & 0xFF);
+//
+//	char set[16] = { 0xEF, 0x01, og_adr1, og_adr2, og_adr3, og_adr4, 0x01, 0x00, //instruction
+//			0x07, 0x15, new_adr1, new_adr2, new_adr3, new_adr4, sum1, sum2 };
+//
+//	uint8_t i = 0;		//iteration counter
+//	while (i < 16) { //sends data from lowest byte to highest byte
+//		while (!(USART2->ISR & USART_ISR_TXE))
+//			; //waits for empty transmit
+//		USART2->TDR = set[i];
+//		i++;	//increments array
+//	}
+//	ACK_LENGTH = 12; //Acknowledge packet 12 bytes long
+//}
 
 //Sets parameters
 /* PARAMETERS [param]:
@@ -97,6 +100,7 @@ void SetSysPara(char param, char setting) {
 		i++;	//increments array
 	}
 	ACK_LENGTH = 12; //Acknowledge packet 12 bytes long
+	delay_us(CMD_DELAY); //to separate transmission and received data
 }
 
 
@@ -114,6 +118,7 @@ void templateNum(void) {
 		i++;	//increments array
 	}
 	ACK_LENGTH = 14; //Acknowledge packet 14 bytes long
+	delay_us(CMD_DELAY); //to separate transmission and received data
 }
 
 
@@ -130,6 +135,7 @@ void genImg(void){
 		i++;	//increments array
 	}
 	ACK_LENGTH = 12; //Acknowledge packet 12 bytes long
+	delay_us(CMD_DELAY); //to separate transmission and received data
 }
 
 
@@ -154,6 +160,7 @@ void upChar(char buffID) {
 		i++;	//increments array
 	}
 	ACK_LENGTH = 12; //Acknowledge packet 12 bytes long
+	delay_us(CMD_DELAY); //to separate transmission and received data
 }
 
 //downloads fingerprint ID from MCU;
@@ -177,6 +184,7 @@ void downChar(char buffID) {
 		i++;	//increments array
 	}
 	ACK_LENGTH = 12; //Acknowledge packet 12 bytes long
+	delay_us(CMD_DELAY); //to separate transmission and received data
 }
 
 
@@ -191,19 +199,21 @@ void Img2Tz(char buffID){
 	uint16_t sum = 0x01 + 0x0004 + 0x02 + buffID;//0x0007 package length, 0x01 package identifer
 	char sum1 = (sum >> 8) & 0xFF;
 	char sum2 = sum & 0xFF;
+	buffID = 0x00 + buffID;
 
 	//instruction to send
 	char img[13] = { 0xEF, 0x01, 0xFF, 0xFF, 0xFF, 0xFF, 0x01, 0x00, 0x04, 0x02, //instruction
 			buffID, sum1, sum2 };
 
 	uint8_t i = 0;		//iteration counter
-	while (i < 12) { //sends data from lowest byte to highest byte
+	while (i < 13) { //sends data from lowest byte to highest byte
 		while (!(USART2->ISR & USART_ISR_TXE))
 			; //waits for empty transmit
 		USART2->TDR = img[i];
 		i++;	//increments array
 	}
 	ACK_LENGTH = 12; //Acknowledge packet 12 bytes long
+	delay_us(CMD_DELAY); //to separate transmission and received data
 }
 
 
@@ -222,6 +232,7 @@ void regMode(void) {
 		i++;	//increments array
 	}
 	ACK_LENGTH = 12; //Acknowledge packet 12 bytes long
+	delay_us(CMD_DELAY); //to separate transmission and received data
 }
 
 //stores template at specified buffer (buff1/buff2) at specified location (pageID)
@@ -248,6 +259,7 @@ void store(char buffID, uint16_t pageID) {
 		i++;	//increments array
 	}
 	ACK_LENGTH = 12; //Acknowledge packet 12 bytes long
+	delay_us(CMD_DELAY); //to separate transmission and received data
 }
 
 //loads template at specified location (page ID) to specified buffer (buff1/buff2)
@@ -274,6 +286,7 @@ void loadChar(char buffID, uint16_t pageID) {
 		i++;	//increments array
 	}
 	ACK_LENGTH = 12; //Acknowledge packet 12 bytes long
+	delay_us(CMD_DELAY); //to separate transmission and received data
 }
 
 //deletes specified number of templates (N) from specified location (pageID)
@@ -302,6 +315,7 @@ void deletChar(uint16_t pageID, uint16_t N) {
 		i++;	//increments array
 	}
 	ACK_LENGTH = 12; //Acknowledge packet 12 bytes long
+	delay_us(CMD_DELAY); //to separate transmission and received data
 }
 
 //empties entire data base
@@ -318,13 +332,14 @@ void empty(void) {
 		i++;	//increments array
 	}
 	ACK_LENGTH = 12; //Acknowledge packet 12 bytes long
+	delay_us(CMD_DELAY); //to separate transmission and received data
 }
 
 //compares templates loaded onto template
 void match(void) {
 	//might need to adjust address (will I have to change this? make current module address a global variable?
 	char mat[12] = { 0xEF, 0x01, 0xFF, 0xFF, 0xFF, 0xFF, 0x01, 0x00, 0x03,//instructions
-			0x03, 0x00, 0x007 };
+			0x03, 0x00, 0x07 };
 
 	uint8_t i = 0;		//iteration counter
 	while (i < 12) { //sends data from lowest byte to highest byte
@@ -334,6 +349,7 @@ void match(void) {
 		i++;	//increments array
 	}
 	ACK_LENGTH = 14; //Acknowledge packet 14 bytes long
+	delay_us(CMD_DELAY); //to separate transmission and received data
 }
 
 //search whole library to find what matches
@@ -362,5 +378,6 @@ void search(char buffID, uint16_t startPage, uint16_t pageNum) {
 		i++;	//increments array
 	}
 	ACK_LENGTH = 16; //Acknowledge packet 12 bytes long
+	delay_us(CMD_DELAY); //to separate transmission and received data
 }
 

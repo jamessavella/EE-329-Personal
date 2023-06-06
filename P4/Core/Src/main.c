@@ -1,6 +1,6 @@
 #include "main.h"
 #include "uart.h"
-//#include "lcd.h"
+#include "lcd.h"
 #include "delay.h"
 #include "fingerprint.h"
 #include "FP_process.h"
@@ -14,10 +14,9 @@ static int index = 0;
 int flag = 0;
 
 //For USART2 Acknowledge package
-#define ERROR_BUFFER_SIZE 12  //initialize length of buffer to largest possible acknowledge packet
-static uint8_t errorbuffer[ERROR_BUFFER_SIZE];
+uint8_t errorbuffer[ERROR_BUFFER_SIZE];
 static int index0 = 0;
-static int bufferLength = 0;
+//static int bufferLength = 0;
 uint8_t ConfirmationCode = 0;
 uint32_t currentPacketSize = 0;
 
@@ -43,34 +42,51 @@ int main(void) {
 
 	//Fingerprint initialization
 	handshake();
-	delay_us(1000000);
 	SetSysPara(4, 6);
-	delay_us(1000000);
-	SetSysPara(5, 3);
-	delay_us(1000000);
-	SetSysPara(6, 0);
-	delay_us(1000000);
+	SetSysPara(5, 1);
+	SetSysPara(6, 3);
 
+	//FOR DEBUGGING
+	empty(); //empties entire database of FP
+
+
+	//use gotos:
+	FP_enroll(1);	//section 0: only have 10 fingerprints
 
 	while (1) {
+
+
+
+
+
+
+
+
+
+
+
+		//-----------------DEBUGGING CODE
 //		lcd_set_cursor_position(0, 0); // set cursor to second row, first column
 //		write(index0 + '0');
-		genImg();
-		delay_us(500000); //NEED ALWAYS CALL THIS DELAY EVERYTIME I SEND A COMMAND
 
-
-
-
+//		//for debugging wiring
+//		//-----------------DEBUGGING LPUART
+//		empty();
 //		for (int i = 0; i < BUFFER_SIZE; i++) {
 //			while (!(LPUART1->ISR & USART_ISR_TXE))
 //				;
 //			LPUART1->TDR = errorbuffer[i];
 //			delay_us(1000);
 //		}
-		while (!(LPUART1->ISR & USART_ISR_TXE))
-						;
-					LPUART1->TDR = ConfirmationCode;
-		delay_us(1000);
+//		while (!(LPUART1->ISR & USART_ISR_TXE))
+//						;
+//					LPUART1->TDR = ConfirmationCode;
+//		delay_us(1000);
+
+
+
+
+
 
 
 
@@ -126,23 +142,14 @@ void USART2_IRQHandler(void) { //[0 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18
 		uint8_t charRecv = USART2->RDR;    // read the received character
 		errorbuffer[index0] = charRecv; //buffer must be global variable
 		index0++;                  //index must be global variable
-
-//		if (index0 == 2) {
-//			if (errorbuffer[0] == 0xEF && errorbuffer[1] == 0x01) {
-//				currentPacketSize = ACK_LENGTH;
-//			} else {
-//				index0 = 0;
-//			}
-//		}
 		if (index0 >= ACK_LENGTH) {
 			ConfirmationCode = errorbuffer[9];    //must be global variable
-			FingerprintErrorHandler();
+//			FingerprintErrorHandler();
+//			errorbuffer[1+index0] = '\n';
 			index0 = 0;
 		}
 	}
 }
-
-
 
 void FingerprintErrorHandler(void) {
 	//clear_LCD();

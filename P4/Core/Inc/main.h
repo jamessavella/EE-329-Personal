@@ -10,9 +10,9 @@ extern "C" {
 
 #include "stm32l4xx_hal.h"
 
-
+#define ERROR_BUFFER_SIZE 28  //initialize length of buffer to largest possible acknowledge packet
 extern uint8_t ConfirmationCode;
-
+extern uint8_t errorbuffer[ERROR_BUFFER_SIZE];
 
 
 void Error_Handler(void);

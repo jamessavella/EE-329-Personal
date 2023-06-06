@@ -27,13 +27,13 @@
 #include "lcd.h"
 
 //prototypes
-void LCD_init(void);
-void Nybble();
-void command(uint8_t command);
-void write(char letter);
-void lcd_set_cursor_position(uint8_t row, uint8_t col);
-int LCD_convert_ascii_to_time ( uint8_t asctime );
-void clear_LCD(void);
+//void LCD_init(void);
+//void Nybble();
+//void command(uint8_t command);
+//void write(char letter);
+//void lcd_set_cursor_position(uint8_t row, uint8_t col);
+//int LCD_convert_ascii_to_time ( uint8_t asctime );
+//void clear_LCD(void);
 
 //data bus array
 uint16_t GPIO_Pin[] = {D4, D5, D6, D7};
