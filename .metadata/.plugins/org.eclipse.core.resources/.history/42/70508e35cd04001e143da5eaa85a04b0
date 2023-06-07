@@ -1,0 +1,131 @@
+/*
+ * FP_process.c
+ *
+ *  Created on: Jun 5, 2023
+ *      Author: james
+ */
+
+#include "main.h"
+#include "FP_process.h"
+#include "fingerprint.h"
+#include "delay.h"
+#include "lcd.h"
+
+//#define MAX_FP_PER_SECTION 2 //NO MORE SECTION FUNCTIONALITY
+#define MAX_FP 9 //for debugging search, limits the max amount
+
+
+uint8_t MEM_GLOBAL;	//FP ID# LOCALATION IN FLASH MEMORY
+
+void FP_enroll(void) {
+	/* Order of Operations
+	 * 1. Get user to type name associated with FP
+	 * 2. Get User Input twice
+	 */
+	genImg();	//to get ready to take an input
+
+	//add section functionality here
+
+//	uint8_t mem_local = 0;	//initializes mem local
+	//update mem_local to equal global ID variable
+
+//	while (number_of_fp_per_section < MAX_FP_PER_SECTION) {	//takes 10 user inputs: 0-9
+
+	for (int buff_local = 1; buff_local <= 2; buff_local++) {
+		while (ConfirmationCode == 0x02) {	//No finger detected get finger
+			if (buff_local == 1) {
+				lcd_set_cursor_position(0, 0);
+				str_write("Place finger    ");
+				lcd_set_cursor_position(1, 0);
+				str_write("                ");
+			} else if (buff_local == 2) {
+				lcd_set_cursor_position(0, 0);
+				str_write("Place finger ");
+				lcd_set_cursor_position(1, 0);
+				str_write("again         ");
+			}
+			genImg();	//checks fingerprint
+		}
+		Img2Tz(buff_local);
+		while (ConfirmationCode == 0x00) { //to wait til user removes finger
+			lcd_set_cursor_position(0, 0);
+			str_write("Got Finger!     ");
+			lcd_set_cursor_position(1, 0);
+			str_write("Remove Finger   ");
+			genImg(); //checks fingerprint
+		}
+
+	}
+	regMode(); //generates FP template to store to memory checks if they match as well
+
+	if (ConfirmationCode == 0x00) { //Fingerprint matches!
+		lcd_set_cursor_position(0, 0);
+		str_write("FP Match!   ID=");
+		//want to add MEM_GLOBAL 2 digit functionality?
+		write(MEM_GLOBAL + '0');	//ONLY FOR DEBUGGING
+
+		store(1, MEM_GLOBAL); //stores ID to memory, updates ID for each user enrolled
+		lcd_set_cursor_position(1, 0);
+		str_write("User Enrolled   ");
+
+	} else {
+		lcd_set_cursor_position(0, 0);
+		str_write("FP mismatch :(  ");
+		lcd_set_cursor_position(1, 0);
+		str_write("TRY AGAIN");
+
+		ConfirmationCode = 0x02;	//to get ready for input
+		while (ConfirmationCode == 0x02) {	//No finger detected get finger
+			genImg();	//checks fingerprint
+			lcd_set_cursor_position(1, 0);
+			str_write("Redo Input      ");
+		}
+	}
+
+//	lcd_set_cursor_position(0, 0);
+//	str_write("Reached Max Reg ");
+//	lcd_set_cursor_position(1, 0);
+//	str_write(" For Section = ");
+//	write(section_num + '0');
+
+}
+
+//Searches through data base by asking for user input. Returns address found
+int FP_search(void) {
+	lcd_set_cursor_position(0, 0);
+	str_write("Place Finger    ");
+	lcd_set_cursor_position(1, 0);
+	str_write("to find it      ");
+	genImg();
+
+	while (1) {	//No finger detected get finger
+		genImg();	//checks fingerprint
+		if (ConfirmationCode == 0x00) break;
+		//for error handling
+		else if ((ConfirmationCode == 0x01) | (ConfirmationCode == 0x03)){
+			lcd_set_cursor_position(0, 0);
+			str_write("Place fngr again");
+			lcd_set_cursor_position(1, 0);
+			str_write("Error clean fngr");
+		}
+	}
+	Img2Tz(1);	//stores in buffer 1
+
+	uint8_t pageID_current_search = 0;	//used to search through count
+	lcd_set_cursor_position(0, 0);
+	str_write("Searching Database");
+	lcd_set_cursor_position(1, 0);
+	str_write("        PageID = ");
+	write(MAX_FP + '0');
+	search(1, 0, MAX_FP);	//searches through entire database
+	if (ConfirmationCode == 0x00){	//successfully found ID
+		lcd_set_cursor_position(0, 0);
+		str_write("Found FP at     ");
+		lcd_set_cursor_position(1, 0);
+		str_write("      PageID = ");
+		FP_ID_LOCAL = errorbuffer[10] + errorbuffer[11];	//gets pageID = location of FP stored in FLASH
+		write(FP_ID_LOCAL + '0');
+	}
+
+}
+

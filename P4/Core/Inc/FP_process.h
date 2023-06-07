@@ -8,6 +8,13 @@
 #ifndef INC_FP_PROCESS_H_
 #define INC_FP_PROCESS_H_
 
-void FP_enroll(int section_num);
+//function declarations
+void FP_enroll(void);
+int FP_search(void);
+
+
+//global variable
+extern uint8_t MEM_GLOBAL;	//FP ID# LOCALATION IN FLASH MEMORY
+extern uint16_t FP_ID_LOCAL; //FOUND FP ID# LOCATION IN FLASH MEMORY
 
 #endif /* INC_FP_PROCESS_H_ */

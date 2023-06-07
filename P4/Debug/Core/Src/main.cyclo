@@ -1,6 +1,6 @@
-main.c:23:5:main	1
-main.c:117:6:LPUART1_IRQHandler	4
-main.c:139:6:USART2_IRQHandler	3
-main.c:154:6:FingerprintErrorHandler	14
-main.c:213:6:SystemClock_Config	4
-main.c:243:6:Error_Handler	1
+main.c:24:5:main	1
+main.c:122:6:LPUART1_IRQHandler	4
+main.c:144:6:USART2_IRQHandler	3
+main.c:159:6:FingerprintErrorHandler	14
+main.c:218:6:SystemClock_Config	4
+main.c:248:6:Error_Handler	1

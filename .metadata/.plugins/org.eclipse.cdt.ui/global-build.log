@@ -1,53 +1,4 @@
-15:50:52 **** Incremental Build of configuration Debug for project P4 ****
-make -j12 all 
-arm-none-eabi-gcc "../Core/Src/FP_process.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DDEBUG -DUSE_HAL_DRIVER -DSTM32L4A6xx -c -I../Core/Inc -I../Drivers/STM32L4xx_HAL_Driver/Inc -I../Drivers/STM32L4xx_HAL_Driver/Inc/Legacy -I../Drivers/CMSIS/Device/ST/STM32L4xx/Include -I../Drivers/CMSIS/Include -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -fcyclomatic-complexity -MMD -MP -MF"Core/Src/FP_process.d" -MT"Core/Src/FP_process.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "Core/Src/FP_process.o"
-arm-none-eabi-gcc -o "P4.elf" @"objects.list"   -mcpu=cortex-m4 -T"C:\Users\james\STM32CubeIDE\workspace_1.12.0\P4\STM32L4A6ZGTX_FLASH.ld" --specs=nosys.specs -Wl,-Map="P4.map" -Wl,--gc-sections -static --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -Wl,--start-group -lc -lm -Wl,--end-group
-Finished building target: P4.elf
- 
-arm-none-eabi-size   P4.elf 
-arm-none-eabi-objdump -h -S  P4.elf  > "P4.list"
-   text	   data	    bss	    dec	    hex	filename
-   6964	     28	   1876	   8868	   22a4	P4.elf
-Finished building: default.size.stdout
- 
-Finished building: P4.list
- 
-15:51:04 **** Incremental Build of configuration Debug for project P4 ****
-make -j12 all 
-arm-none-eabi-size   P4.elf 
-   text	   data	    bss	    dec	    hex	filename
-   6964	     28	   1876	   8868	   22a4	P4.elf
-Finished building: default.size.stdout
- 
-15:52:47 **** Incremental Build of configuration Debug for project P4 ****
-make -j12 all 
-arm-none-eabi-gcc "../Core/Src/main.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DDEBUG -DUSE_HAL_DRIVER -DSTM32L4A6xx -c -I../Core/Inc -I../Drivers/STM32L4xx_HAL_Driver/Inc -I../Drivers/STM32L4xx_HAL_Driver/Inc/Legacy -I../Drivers/CMSIS/Device/ST/STM32L4xx/Include -I../Drivers/CMSIS/Include -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -fcyclomatic-complexity -MMD -MP -MF"Core/Src/main.d" -MT"Core/Src/main.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "Core/Src/main.o"
-arm-none-eabi-gcc -o "P4.elf" @"objects.list"   -mcpu=cortex-m4 -T"C:\Users\james\STM32CubeIDE\workspace_1.12.0\P4\STM32L4A6ZGTX_FLASH.ld" --specs=nosys.specs -Wl,-Map="P4.map" -Wl,--gc-sections -static --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -Wl,--start-group -lc -lm -Wl,--end-group
-Finished building target: P4.elf
- 
-arm-none-eabi-size   P4.elf 
-arm-none-eabi-objdump -h -S  P4.elf  > "P4.list"
-   text	   data	    bss	    dec	    hex	filename
-   6956	     28	   1876	   8860	   229c	P4.elf
-Finished building: default.size.stdout
- 
-Finished building: P4.list
- 
-15:54:19 **** Incremental Build of configuration Debug for project P4 ****
-make -j12 all 
-arm-none-eabi-gcc "../Core/Src/main.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DDEBUG -DUSE_HAL_DRIVER -DSTM32L4A6xx -c -I../Core/Inc -I../Drivers/STM32L4xx_HAL_Driver/Inc -I../Drivers/STM32L4xx_HAL_Driver/Inc/Legacy -I../Drivers/CMSIS/Device/ST/STM32L4xx/Include -I../Drivers/CMSIS/Include -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -fcyclomatic-complexity -MMD -MP -MF"Core/Src/main.d" -MT"Core/Src/main.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "Core/Src/main.o"
-arm-none-eabi-gcc -o "P4.elf" @"objects.list"   -mcpu=cortex-m4 -T"C:\Users\james\STM32CubeIDE\workspace_1.12.0\P4\STM32L4A6ZGTX_FLASH.ld" --specs=nosys.specs -Wl,-Map="P4.map" -Wl,--gc-sections -static --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -Wl,--start-group -lc -lm -Wl,--end-group
-Finished building target: P4.elf
- 
-arm-none-eabi-size   P4.elf 
-arm-none-eabi-objdump -h -S  P4.elf  > "P4.list"
-   text	   data	    bss	    dec	    hex	filename
-   6964	     28	   1876	   8868	   22a4	P4.elf
-Finished building: default.size.stdout
- 
-Finished building: P4.list
- 
-16:01:47 **** Incremental Build of configuration Debug for project P4 ****
+17:54:38 **** Incremental Build of configuration Debug for project P4 ****
 make -j12 all 
 arm-none-eabi-gcc "../Core/Src/FP_process.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DDEBUG -DUSE_HAL_DRIVER -DSTM32L4A6xx -c -I../Core/Inc -I../Drivers/STM32L4xx_HAL_Driver/Inc -I../Drivers/STM32L4xx_HAL_Driver/Inc/Legacy -I../Drivers/CMSIS/Device/ST/STM32L4xx/Include -I../Drivers/CMSIS/Include -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -fcyclomatic-complexity -MMD -MP -MF"Core/Src/FP_process.d" -MT"Core/Src/FP_process.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "Core/Src/FP_process.o"
 arm-none-eabi-gcc "../Core/Src/main.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DDEBUG -DUSE_HAL_DRIVER -DSTM32L4A6xx -c -I../Core/Inc -I../Drivers/STM32L4xx_HAL_Driver/Inc -I../Drivers/STM32L4xx_HAL_Driver/Inc/Legacy -I../Drivers/CMSIS/Device/ST/STM32L4xx/Include -I../Drivers/CMSIS/Include -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -fcyclomatic-complexity -MMD -MP -MF"Core/Src/main.d" -MT"Core/Src/main.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "Core/Src/main.o"
@@ -57,144 +8,22 @@ Finished building target: P4.elf
 arm-none-eabi-size   P4.elf 
 arm-none-eabi-objdump -h -S  P4.elf  > "P4.list"
    text	   data	    bss	    dec	    hex	filename
-   8424	     28	   1876	  10328	   2858	P4.elf
+   9232	     28	   1876	  11136	   2b80	P4.elf
 Finished building: default.size.stdout
  
 Finished building: P4.list
  
-16:04:29 **** Incremental Build of configuration Debug for project P4 ****
+17:54:47 **** Incremental Build of configuration Debug for project P4 ****
 make -j12 all 
-arm-none-eabi-gcc "../Core/Src/FP_process.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DDEBUG -DUSE_HAL_DRIVER -DSTM32L4A6xx -c -I../Core/Inc -I../Drivers/STM32L4xx_HAL_Driver/Inc -I../Drivers/STM32L4xx_HAL_Driver/Inc/Legacy -I../Drivers/CMSIS/Device/ST/STM32L4xx/Include -I../Drivers/CMSIS/Include -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -fcyclomatic-complexity -MMD -MP -MF"Core/Src/FP_process.d" -MT"Core/Src/FP_process.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "Core/Src/FP_process.o"
-arm-none-eabi-gcc -o "P4.elf" @"objects.list"   -mcpu=cortex-m4 -T"C:\Users\james\STM32CubeIDE\workspace_1.12.0\P4\STM32L4A6ZGTX_FLASH.ld" --specs=nosys.specs -Wl,-Map="P4.map" -Wl,--gc-sections -static --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -Wl,--start-group -lc -lm -Wl,--end-group
-Finished building target: P4.elf
- 
 arm-none-eabi-size   P4.elf 
-arm-none-eabi-objdump -h -S  P4.elf  > "P4.list"
    text	   data	    bss	    dec	    hex	filename
-   8468	     28	   1876	  10372	   2884	P4.elf
+   9232	     28	   1876	  11136	   2b80	P4.elf
 Finished building: default.size.stdout
  
-Finished building: P4.list
- 
-16:06:36 **** Incremental Build of configuration Debug for project P4 ****
+17:57:50 **** Incremental Build of configuration Debug for project P4 ****
 make -j12 all 
-arm-none-eabi-gcc "../Core/Src/FP_process.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DDEBUG -DUSE_HAL_DRIVER -DSTM32L4A6xx -c -I../Core/Inc -I../Drivers/STM32L4xx_HAL_Driver/Inc -I../Drivers/STM32L4xx_HAL_Driver/Inc/Legacy -I../Drivers/CMSIS/Device/ST/STM32L4xx/Include -I../Drivers/CMSIS/Include -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -fcyclomatic-complexity -MMD -MP -MF"Core/Src/FP_process.d" -MT"Core/Src/FP_process.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "Core/Src/FP_process.o"
-../Core/Src/FP_process.c: In function 'FP_enroll':
-../Core/Src/FP_process.c:69:9: warning: suggest parentheses around assignment used as truth value [-Wparentheses]
-   69 |     if (number_of_fp_per_section = MAX_FP_PER_SECTION)
-      |         ^~~~~~~~~~~~~~~~~~~~~~~~
-arm-none-eabi-gcc -o "P4.elf" @"objects.list"   -mcpu=cortex-m4 -T"C:\Users\james\STM32CubeIDE\workspace_1.12.0\P4\STM32L4A6ZGTX_FLASH.ld" --specs=nosys.specs -Wl,-Map="P4.map" -Wl,--gc-sections -static --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -Wl,--start-group -lc -lm -Wl,--end-group
-Finished building target: P4.elf
- 
 arm-none-eabi-size   P4.elf 
-arm-none-eabi-objdump -h -S  P4.elf  > "P4.list"
    text	   data	    bss	    dec	    hex	filename
-   8480	     28	   1876	  10384	   2890	P4.elf
+   9232	     28	   1876	  11136	   2b80	P4.elf
 Finished building: default.size.stdout
- 
-Finished building: P4.list
- 
-16:08:05 **** Incremental Build of configuration Debug for project P4 ****
-make -j12 all 
-arm-none-eabi-gcc "../Core/Src/FP_process.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DDEBUG -DUSE_HAL_DRIVER -DSTM32L4A6xx -c -I../Core/Inc -I../Drivers/STM32L4xx_HAL_Driver/Inc -I../Drivers/STM32L4xx_HAL_Driver/Inc/Legacy -I../Drivers/CMSIS/Device/ST/STM32L4xx/Include -I../Drivers/CMSIS/Include -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -fcyclomatic-complexity -MMD -MP -MF"Core/Src/FP_process.d" -MT"Core/Src/FP_process.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "Core/Src/FP_process.o"
-../Core/Src/FP_process.c: In function 'FP_enroll':
-../Core/Src/FP_process.c:58:7: warning: suggest parentheses around assignment used as truth value [-Wparentheses]
-   58 |   if (number_of_fp_per_section = MAX_FP_PER_SECTION)
-      |       ^~~~~~~~~~~~~~~~~~~~~~~~
-arm-none-eabi-gcc -o "P4.elf" @"objects.list"   -mcpu=cortex-m4 -T"C:\Users\james\STM32CubeIDE\workspace_1.12.0\P4\STM32L4A6ZGTX_FLASH.ld" --specs=nosys.specs -Wl,-Map="P4.map" -Wl,--gc-sections -static --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -Wl,--start-group -lc -lm -Wl,--end-group
-Finished building target: P4.elf
- 
-arm-none-eabi-size   P4.elf 
-arm-none-eabi-objdump -h -S  P4.elf  > "P4.list"
-   text	   data	    bss	    dec	    hex	filename
-   8040	     28	   1876	   9944	   26d8	P4.elf
-Finished building: default.size.stdout
- 
-Finished building: P4.list
- 
-16:08:40 **** Incremental Build of configuration Debug for project P4 ****
-make -j12 all 
-arm-none-eabi-gcc "../Core/Src/FP_process.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DDEBUG -DUSE_HAL_DRIVER -DSTM32L4A6xx -c -I../Core/Inc -I../Drivers/STM32L4xx_HAL_Driver/Inc -I../Drivers/STM32L4xx_HAL_Driver/Inc/Legacy -I../Drivers/CMSIS/Device/ST/STM32L4xx/Include -I../Drivers/CMSIS/Include -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -fcyclomatic-complexity -MMD -MP -MF"Core/Src/FP_process.d" -MT"Core/Src/FP_process.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "Core/Src/FP_process.o"
-arm-none-eabi-gcc -o "P4.elf" @"objects.list"   -mcpu=cortex-m4 -T"C:\Users\james\STM32CubeIDE\workspace_1.12.0\P4\STM32L4A6ZGTX_FLASH.ld" --specs=nosys.specs -Wl,-Map="P4.map" -Wl,--gc-sections -static --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -Wl,--start-group -lc -lm -Wl,--end-group
-Finished building target: P4.elf
- 
-arm-none-eabi-size   P4.elf 
-arm-none-eabi-objdump -h -S  P4.elf  > "P4.list"
-   text	   data	    bss	    dec	    hex	filename
-   8480	     28	   1876	  10384	   2890	P4.elf
-Finished building: default.size.stdout
- 
-Finished building: P4.list
- 
-16:10:23 **** Incremental Build of configuration Debug for project P4 ****
-make -j12 all 
-arm-none-eabi-gcc "../Core/Src/FP_process.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DDEBUG -DUSE_HAL_DRIVER -DSTM32L4A6xx -c -I../Core/Inc -I../Drivers/STM32L4xx_HAL_Driver/Inc -I../Drivers/STM32L4xx_HAL_Driver/Inc/Legacy -I../Drivers/CMSIS/Device/ST/STM32L4xx/Include -I../Drivers/CMSIS/Include -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -fcyclomatic-complexity -MMD -MP -MF"Core/Src/FP_process.d" -MT"Core/Src/FP_process.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "Core/Src/FP_process.o"
-arm-none-eabi-gcc -o "P4.elf" @"objects.list"   -mcpu=cortex-m4 -T"C:\Users\james\STM32CubeIDE\workspace_1.12.0\P4\STM32L4A6ZGTX_FLASH.ld" --specs=nosys.specs -Wl,-Map="P4.map" -Wl,--gc-sections -static --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -Wl,--start-group -lc -lm -Wl,--end-group
-Finished building target: P4.elf
- 
-arm-none-eabi-size   P4.elf 
-arm-none-eabi-objdump -h -S  P4.elf  > "P4.list"
-   text	   data	    bss	    dec	    hex	filename
-   8476	     28	   1876	  10380	   288c	P4.elf
-Finished building: default.size.stdout
- 
-Finished building: P4.list
- 
-16:11:28 **** Incremental Build of configuration Debug for project P4 ****
-make -j12 all 
-arm-none-eabi-gcc "../Core/Src/FP_process.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DDEBUG -DUSE_HAL_DRIVER -DSTM32L4A6xx -c -I../Core/Inc -I../Drivers/STM32L4xx_HAL_Driver/Inc -I../Drivers/STM32L4xx_HAL_Driver/Inc/Legacy -I../Drivers/CMSIS/Device/ST/STM32L4xx/Include -I../Drivers/CMSIS/Include -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -fcyclomatic-complexity -MMD -MP -MF"Core/Src/FP_process.d" -MT"Core/Src/FP_process.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "Core/Src/FP_process.o"
-../Core/Src/FP_process.c: In function 'FP_enroll':
-../Core/Src/FP_process.c:69:41: warning: '~' on a boolean expression [-Wbool-operation]
-   69 |    while ((ConfirmationCode == 0x02) && ~(number_of_fp_per_section == MAX_FP_PER_SECTION)) { //No finger detected get finger
-      |                                         ^
-../Core/Src/FP_process.c:69:41: note: did you mean to use logical not?
-   69 |    while ((ConfirmationCode == 0x02) && ~(number_of_fp_per_section == MAX_FP_PER_SECTION)) { //No finger detected get finger
-      |                                         ^
-      |                                         !
-arm-none-eabi-gcc -o "P4.elf" @"objects.list"   -mcpu=cortex-m4 -T"C:\Users\james\STM32CubeIDE\workspace_1.12.0\P4\STM32L4A6ZGTX_FLASH.ld" --specs=nosys.specs -Wl,-Map="P4.map" -Wl,--gc-sections -static --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -Wl,--start-group -lc -lm -Wl,--end-group
-Finished building target: P4.elf
- 
-arm-none-eabi-size   P4.elf 
-arm-none-eabi-objdump -h -S  P4.elf  > "P4.list"
-   text	   data	    bss	    dec	    hex	filename
-   8468	     28	   1876	  10372	   2884	P4.elf
-Finished building: default.size.stdout
- 
-Finished building: P4.list
- 
-16:13:22 **** Incremental Build of configuration Debug for project P4 ****
-make -j12 all 
-arm-none-eabi-gcc "../Core/Src/main.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DDEBUG -DUSE_HAL_DRIVER -DSTM32L4A6xx -c -I../Core/Inc -I../Drivers/STM32L4xx_HAL_Driver/Inc -I../Drivers/STM32L4xx_HAL_Driver/Inc/Legacy -I../Drivers/CMSIS/Device/ST/STM32L4xx/Include -I../Drivers/CMSIS/Include -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -fcyclomatic-complexity -MMD -MP -MF"Core/Src/main.d" -MT"Core/Src/main.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "Core/Src/main.o"
-arm-none-eabi-gcc -o "P4.elf" @"objects.list"   -mcpu=cortex-m4 -T"C:\Users\james\STM32CubeIDE\workspace_1.12.0\P4\STM32L4A6ZGTX_FLASH.ld" --specs=nosys.specs -Wl,-Map="P4.map" -Wl,--gc-sections -static --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -Wl,--start-group -lc -lm -Wl,--end-group
-Finished building target: P4.elf
- 
-arm-none-eabi-size   P4.elf 
-arm-none-eabi-objdump -h -S  P4.elf  > "P4.list"
-   text	   data	    bss	    dec	    hex	filename
-   8468	     28	   1876	  10372	   2884	P4.elf
-Finished building: default.size.stdout
- 
-Finished building: P4.list
- 
-16:14:35 **** Incremental Build of configuration Debug for project P4 ****
-make -j12 all 
-arm-none-eabi-gcc "../Core/Src/FP_process.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DDEBUG -DUSE_HAL_DRIVER -DSTM32L4A6xx -c -I../Core/Inc -I../Drivers/STM32L4xx_HAL_Driver/Inc -I../Drivers/STM32L4xx_HAL_Driver/Inc/Legacy -I../Drivers/CMSIS/Device/ST/STM32L4xx/Include -I../Drivers/CMSIS/Include -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -fcyclomatic-complexity -MMD -MP -MF"Core/Src/FP_process.d" -MT"Core/Src/FP_process.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "Core/Src/FP_process.o"
-../Core/Src/FP_process.c: In function 'FP_enroll':
-../Core/Src/FP_process.c:69:41: warning: '~' on a boolean expression [-Wbool-operation]
-   69 |    while ((ConfirmationCode == 0x02) && ~(number_of_fp_per_section == MAX_FP_PER_SECTION)) { //No finger detected get finger
-      |                                         ^
-../Core/Src/FP_process.c:69:41: note: did you mean to use logical not?
-   69 |    while ((ConfirmationCode == 0x02) && ~(number_of_fp_per_section == MAX_FP_PER_SECTION)) { //No finger detected get finger
-      |                                         ^
-      |                                         !
-arm-none-eabi-gcc -o "P4.elf" @"objects.list"   -mcpu=cortex-m4 -T"C:\Users\james\STM32CubeIDE\workspace_1.12.0\P4\STM32L4A6ZGTX_FLASH.ld" --specs=nosys.specs -Wl,-Map="P4.map" -Wl,--gc-sections -static --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -Wl,--start-group -lc -lm -Wl,--end-group
-Finished building target: P4.elf
- 
-arm-none-eabi-size   P4.elf 
-arm-none-eabi-objdump -h -S  P4.elf  > "P4.list"
-   text	   data	    bss	    dec	    hex	filename
-   8480	     28	   1876	  10384	   2890	P4.elf
-Finished building: default.size.stdout
- 
-Finished building: P4.list
  

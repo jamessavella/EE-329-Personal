@@ -27,7 +27,7 @@ void loadChar(char buffID, uint16_t pageID);
 void deletChar(uint16_t pageID, uint16_t N);
 void empty(void);
 void match(void);
-void serach(char buffID, uint16_t startPage, uint16_t pageNum);
+void search(char buffID, uint16_t startPage, uint16_t pageNum);
 void genImg(void);
 void Img2Tz(char buffID);
 

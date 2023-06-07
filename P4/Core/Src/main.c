@@ -20,6 +20,7 @@ static int index0 = 0;
 uint8_t ConfirmationCode = 0;
 uint32_t currentPacketSize = 0;
 
+
 int main(void) {
 
 	HAL_Init();
@@ -49,9 +50,13 @@ int main(void) {
 	//FOR DEBUGGING
 	empty(); //empties entire database of FP
 
+	//-------------FP ENROLL PROCESS WORKS
+	//use gotos:
+	FP_enroll();	//section 0: only have 10 fingerprints
+	MEM_GLOBAL++;	//updates global array
 
 	//use gotos:
-	FP_enroll(1);	//section 0: only have 10 fingerprints
+	FP_search();
 
 	while (1) {
 
@@ -90,8 +95,8 @@ int main(void) {
 
 
 
-		//=--------------WILLIE POGGIE ATTRIBUTION
-//		USART_print("Hello");
+//		//=--------------WILLIE POGGIE ATTRIBUTION
+////		USART_print("Hello");
 //		if (flag) {
 //			delay_us(10000);
 //			flag = 0;
