@@ -9,9 +9,10 @@ void SystemClock_Config(void);
 void FingerprintErrorHandler(void);
 
 #define BUFFER_SIZE 256
-static char buffer[BUFFER_SIZE];
-static int index = 0;
-int flag = 0;
+//static char buffer[BUFFER_SIZE];
+//static int index = 0;
+//int flag = 0;
+//int FPIDrdy = 0;
 
 //For USART2 Acknowledge package
 uint8_t errorbuffer[ERROR_BUFFER_SIZE];
@@ -20,6 +21,13 @@ static int index0 = 0;
 uint8_t ConfirmationCode = 0;
 uint32_t currentPacketSize = 0;
 
+//for LPUART Functionality
+int index = 0;
+uint8_t discordbuffer[BUFFER_SIZE];
+
+int flag = 0;
+int flag10 = 0;
+int FPIDrdy = 0;
 
 int main(void) {
 
@@ -42,33 +50,41 @@ int main(void) {
 	delay_us(10000);
 
 	//Fingerprint initialization
-	handshake();
-	SetSysPara(4, 6);
-	SetSysPara(5, 1);
-	SetSysPara(6, 3);
+	FP_check();
 
 	//FOR DEBUGGING
 	empty(); //empties entire database of FP
 
-	//-------------FP ENROLL PROCESS WORKS
-	//use gotos:
-	FP_enroll();	//section 0: only have 10 fingerprints
-	MEM_GLOBAL++;	//updates global array
-
-	//use gotos:
-	FP_search();
+//	FP_enroll();	//section 0: only have 10 fingerprintss
+//	MEM_GLOBAL++;	//updates global array
+//
+//	//delay for debugging
+//	delay_us(10000000);
+//
+//	//use gotos:
+//	FP_search();
 
 	while (1) {
 
+		if (flag10) {
+			GPIOB->BSRR = GPIO_PIN_7;
+			while (!(LPUART1->ISR & USART_ISR_TXE))
+				;  // wait for empty TX buffer
+			LPUART1->TDR = errorbuffer[0]; // send received character
+			while (!(LPUART1->ISR & USART_ISR_TXE))
+				;  // wait for empty TX buffer
+			LPUART1->TDR = errorbuffer[1]; // send received character
 
+			FP_enroll();	//section 0: only have 10 fingerprintss
+			MEM_GLOBAL++;	//updates global array
 
+			//delay for debugging
+			delay_us(10000000);
 
+//			FP_search();
 
-
-
-
-
-
+			flag10 = 0;
+		}
 
 		//-----------------DEBUGGING CODE
 //		lcd_set_cursor_position(0, 0); // set cursor to second row, first column
@@ -87,13 +103,6 @@ int main(void) {
 //						;
 //					LPUART1->TDR = ConfirmationCode;
 //		delay_us(1000);
-
-
-
-
-
-
-
 
 //		//=--------------WILLIE POGGIE ATTRIBUTION
 ////		USART_print("Hello");
@@ -115,31 +124,74 @@ int main(void) {
 //			delay_us(1000000);
 //		}
 //		GPIOB->BRR = GPIO_PIN_7;
-
+//
 	}
 }
 
+//Donna Updated need to test
 void LPUART1_IRQHandler(void) {
 	if (LPUART1->ISR & USART_ISR_RXNE) { // check if there is new data in the UART receiver
-		GPIOB->BSRR = GPIO_PIN_7;
+		uint8_t charRecv = USART2->RDR;        // read the received character
+		discordbuffer[index] = charRecv;      //buffer must be global variable
+		index++;                              //index must be global variable
 
-		char charRecv = LPUART1->RDR;  // read the received character
-		buffer[index] = charRecv;
-		index++;
+		if (index == 1) {
+			if (discordbuffer[0] == 0xEF) {
 
-		if (charRecv == '\n') {
+			} else {
+				index = 0;
+			}
+		}
+		if (index == 2) {
+			if (discordbuffer[0] == 0xEF && discordbuffer[1] == 0x02) { //wilson send 0xEF02 to indicate beginning of enrollment
+				flag10 = 1;
+			}
+			if (discordbuffer[0] == 0xEF && discordbuffer[1] == 0x03) { //wilson send 0xEF03 to indicate beginning of attendance?
+				FP_search();
+			}
+		}
+		if (charRecv == '\n') { //replace python null terminator with C null terminator
 			flag = 1;
 			index--;
-			buffer[index] = '\0';
+			discordbuffer[index] = '\0'; //place user name string into buffer to be written to LCD
 			index = 0;
 		}
-		while (!(LPUART1->ISR & USART_ISR_TXE))
-			;  // wait for empty TX buffer
-		LPUART1->TDR = charRecv; // send received character
-
-		GPIOB->BRR = GPIO_PIN_7;
+//		while (!(LPUART1->ISR & USART_ISR_TXE))
+//					;  // wait for empty TX buffer
+//			LPUART1->TDR = charRecv; // send received character
 	}
 }
+
+void LPUART_FPID() {			//send fingerprint ID to discord for processing
+	while (!(LPUART1->ISR & USART_ISR_TXE))
+		;
+	if (FPIDrdy == 1) {
+		FP_ID = LPUART1->TDR;     // sent wilson fingerprint ID
+	}
+}
+
+//OG LPUART WORKING
+//void LPUART1_IRQHandler(void) {
+//	if (LPUART1->ISR & USART_ISR_RXNE) { // check if there is new data in the UART receiver
+//		GPIOB->BSRR = GPIO_PIN_7;
+//
+//		char charRecv = LPUART1->RDR;  // read the received character
+//		buffer[index] = charRecv;
+//		index++;
+//
+//		if (charRecv == '\n') {
+//			flag = 1;
+//			index--;
+//			buffer[index] = '\0';
+//			index = 0;
+//		}
+//		while (!(LPUART1->ISR & USART_ISR_TXE))
+//			;  // wait for empty TX buffer
+//		LPUART1->TDR = charRecv; // send received character
+//
+//		GPIOB->BRR = GPIO_PIN_7;
+//	}
+//}
 
 void USART2_IRQHandler(void) { //[0 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 20 21 22 23 24 25 26 27]
 //	GPIOB->BSRR = GPIO_PIN_7;
@@ -156,64 +208,65 @@ void USART2_IRQHandler(void) { //[0 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18
 	}
 }
 
-void FingerprintErrorHandler(void) {
-	//clear_LCD();
-	lcd_set_cursor_position(0, 0);
-//16 characters per line
-	if (ConfirmationCode == 0x00) {
-		str_write("cmd success     ");
-		lcd_set_cursor_position(1, 0);
-		str_write("                ");
-	} else if (ConfirmationCode == 0x02) {
-		str_write("fngr not found  ");
-		lcd_set_cursor_position(1, 0);
-		str_write("put fngr on sens");
-	} else if (ConfirmationCode == 0x01) {
-		str_write("error receiving ");
-		lcd_set_cursor_position(1, 0);
-		str_write("or storing data ");
-	} else if (ConfirmationCode == 0x0A) {
-		str_write("failure to      ");
-		lcd_set_cursor_position(1, 0);
-		str_write("combine data    ");
-	} else if (ConfirmationCode == 0x1A) {
-		str_write("invalid register");
-		lcd_set_cursor_position(1, 0);
-		str_write("number          ");
-	} else if (ConfirmationCode == 0x0D) {
-		str_write("error uploading ");
-		lcd_set_cursor_position(1, 0);
-		str_write("fingerprint     ");
-	} else if (ConfirmationCode == 0x1D) {
-		str_write("fail to operate ");
-		lcd_set_cursor_position(1, 0);
-		str_write("comms port      ");
-	} else if (ConfirmationCode == 0x0B) {
-		str_write("addressing PgeID");
-		lcd_set_cursor_position(1, 0);
-		str_write("beyond fngr lib ");
-	} else if (ConfirmationCode == 0x18) {
-		str_write("err when writing");
-		lcd_set_cursor_position(1, 0);
-		str_write("flash           ");
-	} else if (ConfirmationCode == 0x0C) {
-		str_write("err reading temp");
-		lcd_set_cursor_position(1, 0);
-		str_write("from lib or template invalid");
-	} else if (ConfirmationCode == 0x11) {
-		str_write("failure to clear");
-		lcd_set_cursor_position(1, 0);
-		str_write("library");
-	} else if (ConfirmationCode == 0x08) {
-		str_write("buffer templates");
-		lcd_set_cursor_position(1, 0);
-		str_write("dont match");
-	} else if (ConfirmationCode == 0x09) {
-		str_write("no match in");
-		lcd_set_cursor_position(1, 0);
-		str_write("library");
-	}
-}
+//FOR DEBUGGING
+//void FingerprintErrorHandler(void) {
+//	//clear_LCD();
+//	lcd_set_cursor_position(0, 0);
+////16 characters per line
+//	if (ConfirmationCode == 0x00) {
+//		str_write("cmd success     ");
+//		lcd_set_cursor_position(1, 0);
+//		str_write("                ");
+//	} else if (ConfirmationCode == 0x02) {
+//		str_write("fngr not found  ");
+//		lcd_set_cursor_position(1, 0);
+//		str_write("put fngr on sens");
+//	} else if (ConfirmationCode == 0x01) {
+//		str_write("error receiving ");
+//		lcd_set_cursor_position(1, 0);
+//		str_write("or storing data ");
+//	} else if (ConfirmationCode == 0x0A) {
+//		str_write("failure to      ");
+//		lcd_set_cursor_position(1, 0);
+//		str_write("combine data    ");
+//	} else if (ConfirmationCode == 0x1A) {
+//		str_write("invalid register");
+//		lcd_set_cursor_position(1, 0);
+//		str_write("number          ");
+//	} else if (ConfirmationCode == 0x0D) {
+//		str_write("error uploading ");
+//		lcd_set_cursor_position(1, 0);
+//		str_write("fingerprint     ");
+//	} else if (ConfirmationCode == 0x1D) {
+//		str_write("fail to operate ");
+//		lcd_set_cursor_position(1, 0);
+//		str_write("comms port      ");
+//	} else if (ConfirmationCode == 0x0B) {
+//		str_write("addressing PgeID");
+//		lcd_set_cursor_position(1, 0);
+//		str_write("beyond fngr lib ");
+//	} else if (ConfirmationCode == 0x18) {
+//		str_write("err when writing");
+//		lcd_set_cursor_position(1, 0);
+//		str_write("flash           ");
+//	} else if (ConfirmationCode == 0x0C) {
+//		str_write("err reading temp");
+//		lcd_set_cursor_position(1, 0);
+//		str_write("from lib or template invalid");
+//	} else if (ConfirmationCode == 0x11) {
+//		str_write("failure to clear");
+//		lcd_set_cursor_position(1, 0);
+//		str_write("library");
+//	} else if (ConfirmationCode == 0x08) {
+//		str_write("buffer templates");
+//		lcd_set_cursor_position(1, 0);
+//		str_write("dont match");
+//	} else if (ConfirmationCode == 0x09) {
+//		str_write("no match in");
+//		lcd_set_cursor_position(1, 0);
+//		str_write("library");
+//	}
+//}
 
 void SystemClock_Config(void) {
 	RCC_OscInitTypeDef RCC_OscInitStruct = { 0 };

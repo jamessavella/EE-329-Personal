@@ -16,13 +16,46 @@
 
 //global variables
 uint8_t MEM_GLOBAL;	//FP ID# LOCATION IN FLASH MEMORY
-uint16_t FP_ID_LOCAL; //FOUND FP ID# LOCATION IN FLASH MEMORY
+uint16_t FP_ID; //FOUND FP ID# LOCATION IN FLASH MEMORY
+
+//checks if FP is connected and communicating properly
+//does not properly find it will need to look at bytes when it is not being sent proper
+void FP_check(void){
+	lcd_set_cursor_position(0, 0);
+	str_write("Booting Fngrprnt");
+	lcd_set_cursor_position(1, 0);
+	str_write("Scanner         ");
+	delay_us(1000000);		//1 second delay to read the message
+
+	handshake();
+	while (ConfirmationCode != 0x00){
+		handshake();
+		lcd_set_cursor_position(0, 0);
+		str_write("FP Scanner not  ");
+		lcd_set_cursor_position(1,0);
+		str_write("found reconnect ");
+	}
+	//sets other parameters: 2nd argument changes settings
+	SetSysPara(4, 6);	//baud rate: 6* 9600 = 57600
+	SetSysPara(5, 1);   //security level: 1 - 5 lowest to highest
+	SetSysPara(6, 3);	//package length: 0 - 3 lowest to highest
+	lcd_set_cursor_position(0, 0);
+	str_write("FP Scanner      ");
+	lcd_set_cursor_position(1,0);
+	str_write("Found           ");
+	delay_us(1000000); 		//1 second delay to read the message
+	lcd_set_cursor_position(0, 0);
+	str_write("                ");
+	lcd_set_cursor_position(1,0);
+	str_write("                ");
+}
 
 void FP_enroll(void) {
 	/* Order of Operations
 	 * 1. Get user to type name associated with FP
 	 * 2. Get User Input twice
 	 */
+	FP_enroll_start:
 	genImg();	//to get ready to take an input
 
 	//add section functionality here
@@ -48,6 +81,7 @@ void FP_enroll(void) {
 			genImg();	//checks fingerprint
 		}
 		Img2Tz(buff_local);
+
 		while (ConfirmationCode == 0x00) { //to wait til user removes finger
 			lcd_set_cursor_position(0, 0);
 			str_write("Got Finger!     ");
@@ -73,14 +107,15 @@ void FP_enroll(void) {
 		lcd_set_cursor_position(0, 0);
 		str_write("FP mismatch :(  ");
 		lcd_set_cursor_position(1, 0);
-		str_write("TRY AGAIN");
+		str_write("Redo Input      ");
 
-		ConfirmationCode = 0x02;	//to get ready for input
-		while (ConfirmationCode == 0x02) {	//No finger detected get finger
+		while (1) {	//No finger detected get finger
 			genImg();	//checks fingerprint
-			lcd_set_cursor_position(1, 0);
-			str_write("Redo Input      ");
+			if (ConfirmationCode == 0x00) goto FP_enroll_start;
+//			lcd_set_cursor_position(1, 0);
+//			str_write("Redo Input      ");
 		}
+
 	}
 
 //	lcd_set_cursor_position(0, 0);
@@ -94,6 +129,7 @@ void FP_enroll(void) {
 //Searches through data base by asking for user input.
 //Returns address found or -1 if error
 int FP_search(void) {
+	//FPIDrdy = 0;
 	lcd_set_cursor_position(0, 0);
 	str_write("Place Finger    ");
 	lcd_set_cursor_position(1, 0);
@@ -125,21 +161,22 @@ int FP_search(void) {
 		str_write("Found FP at     ");
 		lcd_set_cursor_position(1, 0);
 		str_write("      PageID = ");
-		FP_ID_LOCAL = errorbuffer[10] + errorbuffer[11];//gets pageID = location of FP stored in FLASH
-		write(FP_ID_LOCAL + '0');
-		return FP_ID_LOCAL;
+		FP_ID = errorbuffer[10] + errorbuffer[11];//gets pageID = location of FP stored in FLASH
+		write(FP_ID + '0');
+		FPIDrdy = 1;
+		//return FP_ID;
 	} else if (ConfirmationCode == 0x01) {
 		lcd_set_cursor_position(0, 0);
 		str_write("Error During    ");
 		lcd_set_cursor_position(1, 0);
 		str_write("                ");
-		return -1;
+		//return -1;
 	} else {
 		lcd_set_cursor_position(0, 0);
 		str_write("FP Not Found    ");
 		lcd_set_cursor_position(1, 0);
 		str_write("Please Enroll   ");
-		return -1;
+		//return -1;
 	}
 }
 

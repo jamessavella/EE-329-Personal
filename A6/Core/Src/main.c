@@ -66,7 +66,7 @@ void LPUAR_init(void) {
 	LPUART1->CR1 |= USART_CR1_RXNEIE;        // enable LPUART1 recv interrupt
 	LPUART1->ISR &= ~(USART_ISR_RXNE);       // clear Recv-Not-Empty flag
 
-	LPUART1->BRR = 0x22B8;			//sets baud rate
+	LPUART1->BRR = 106666;			//sets baud rate
 
 	NVIC->ISER[2] = (1 << (LPUART1_IRQn & 0x1F));   // enable LPUART1 ISR
 	__enable_irq();                          // enable global interrupts
